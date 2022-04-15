@@ -5,8 +5,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, mapTo, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Action, MenuItem } from 'src/app/core';
+import { Languages } from 'src/app/core/enums/languages.enum';
 import { GroupStatistics } from 'src/app/shared/components/group-statistics/group-statistics.component';
 import { Word } from 'src/app/shared/interfaces';
 import {
@@ -17,6 +18,7 @@ import {
   setWordAsFavoriteAction
 } from 'src/app/store/actions/vocabulary.actions';
 import { errorSelector } from 'src/app/store/selectors/general.selector';
+import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
 import { csvLoaderSelector, isCloseCsvHandlerSelector, isCloseModalSelector, isResetCsvHandlerSelector, modalLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
 import { WordAction } from '../../core/enums/word.enum';
 import { BackendErrorInterface } from './../../core/models/general.model';
@@ -71,6 +73,12 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   isShowVerbsToggle$: Observable<boolean>
   csvLoading$ = this.store$.pipe(select(csvLoaderSelector));
   isResetCsvHandlerState$ = this.store$.pipe(select(isResetCsvHandlerSelector))
+
+  public readonly showRtl$: Observable<boolean> = this.store$.select(currentLanguageSelector).pipe(
+    filter(language => language?.name === Languages.Hebrew),
+    mapTo(true)
+  )
+
   constructor(
     private fb: FormBuilder,
     private router: Router,

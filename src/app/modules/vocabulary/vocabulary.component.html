@@ -1,7 +1,4 @@
-<!-- <mat-error *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}</mat-error> -->
 
-
-<!-- <app-loader [show]="vocabularyLoader$ | async"></app-loader> -->
 <nb-card class="main-content">
 
 
@@ -101,7 +98,7 @@
   <form [formGroup]="wordForm">
     <div class="d-flex">
       <nb-form-field class="w-100 mb-2">
-        <input formControlName="word" type="text" fieldSize="small" nbInput placeholder="Word">
+        <input formControlName="word" [ngClass]="{'rtlInput': (showRtl$ | async)}" type="text" fieldSize="small" nbInput placeholder="Word">
         <i *ngIf="wordControl.value" (click)="copyToClipboard(wordControl.value)" nbSuffix class="far fa-copy "></i>
       </nb-form-field>
       <!-- <input formControlName="word" class="mb-1 w-100" type="text" fieldSize="small" nbInput placeholder="Word"> -->

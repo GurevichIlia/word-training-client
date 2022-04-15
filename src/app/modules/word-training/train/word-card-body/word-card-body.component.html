@@ -1,5 +1,5 @@
 <div class="word m-auto">
-  <span [ngStyle]="{'font-size': text?.length > 11 ? '30px' : '35px'}">{{text}}</span>
+  <div [ngStyle]="{'font-size': text?.length > 11 ? '30px' : '35px', 'direction': (showRtl$ | async) ? 'rtl' : 'ltr' }">{{text}}</div>
 
 </div>
 

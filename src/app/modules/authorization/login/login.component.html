@@ -6,38 +6,16 @@
 <tui-notification status="success" class="tui-space_top-4" *ngIf="isRegistrationSuccess$ | async">
   Registration was successful
 </tui-notification>
-<!-- <div class="error-box" *ngIf="loginError$ | async">
-  <span class="error-message ">Incorrect username or password</span>
-</div> -->
-<!-- <div class="success-box" *ngIf="isRegistrationSuccess$ | async">
-  <span class="success-message ">Registration was success</span>
-</div> -->
 
 <form [formGroup]="loginForm" class="text-center">
-  <!-- <div class="mb-2"> -->
-<!--
-    <input [ngClass]="{'error': isShowLoginError}" autocomplete="email" formControlName="email" name="email" type="email" nbInput
-      fullWidth placeholder="Email">
-    <ng-container *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError">
-      <span class="error-message" *ngIf="loginForm.get('email').hasError('required') ">
-        Email should not be empty</span>
-      <span class="error-message" *ngIf="loginForm.get('email').hasError('email')">
-        Email format is not correct</span>
-    </ng-container> -->
-  <!-- </div> -->
-  <!-- <div class="mb-4">
-    <input formControlName="password" autocomplete="off" [ngClass]="{'error': isShowLoginError}" type="password" nbInput
-      fullWidth placeholder="Password">
-    <span class="error-message"
-      *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">
-      Password should not be empty</span>
-  </div> -->
+
   <div class="tui-row tui-row_sme">
     <div class="tui-space_bottom-2 tui-col_12">
         <tui-input
+            tuiTextfieldAutocomplete="off"
             formControlName="email"
             tuiTextfieldSize="m"
-            [tuiTextfieldLabelOutside]="false"
+            [tuiTextfieldLabelOutside]="true"
         >
           Email
           <input tuiTextfield type="email" />
@@ -49,7 +27,7 @@
         <tui-input
             formControlName="password"
             tuiTextfieldSize="m"
-            [tuiTextfieldLabelOutside]="false"
+            [tuiTextfieldLabelOutside]="true"
         >
           Password
           <input tuiTextfield type="password" />
@@ -74,8 +52,6 @@
       [showLoader]="isSubmitting$ | async"
       [disabled]="isSubmitting$ | async"
     >Login</button>
-
-    <!-- <a (click)="login()"  class="col-8 mb-2 custom-button dark" [ngClass]="{'disabled':isSubmittings$ | async}">Login</a> -->
 
     <div class="col-12 mt-2">
       <span class="sign-up-btn">Don't have an account?<a [routerLink]="['/registration']"> Sign Up</a></span>

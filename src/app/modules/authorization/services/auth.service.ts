@@ -1,14 +1,11 @@
-import { PersistanceService } from 'src/app/shared/services/persistance.service';
-import { LanguageInterface } from './../../languages/types/languages.interfaces';
-import { ApiService } from './../../../core/services/api.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginRequestInterface, RegisterRequestInterface } from 'src/app/core/models/auth.model';
 import { CurrentUserInterface } from 'src/app/shared/interfaces';
 import { BASE_URL } from 'src/app/shared/services/api/api-languages.service';
-import { LoginRequestInterface, RegisterRequestInterface } from 'src/app/core/models/auth.model';
-import { Store } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/store/reducers';
-import { getCurrentUserAction } from '../store/actions/auth.actions';
+import { PersistanceService } from 'src/app/shared/services/persistance.service';
+import { ApiService } from './../../../core/services/api.service';
+import { LanguageInterface } from './../../languages/types/languages.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +14,7 @@ export class AuthService {
   constructor(
     private http: ApiService,
     private persistanceService: PersistanceService
-
-  ) {
-
-  }
+  ) { }
 
   get lastEmail(): string {
     return this.persistanceService.get('word-training-email') || ''
@@ -39,10 +33,5 @@ export class AuthService {
   getCurrentUser(): Observable<CurrentUserInterface> {
     return this.http.get<CurrentUserInterface>(`${BASE_URL}/api/auth/getCurrentUser`);
   }
-
-  isPasswordsMatch(password: string, confirmPassword: string) {
-    return password === confirmPassword;
-  }
-
 
 }

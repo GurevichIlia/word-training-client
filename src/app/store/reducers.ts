@@ -40,7 +40,7 @@ export const reducers: ActionReducerMap<AppStateInterface> = {
   wordTraining: wordTrainingReducer,
   vocabulary: vocabularyReducer,
   generalState: generalReducer,
-  conjugations: conjugationsReducer
+  conjugations: conjugationsReducer,
 };
 
 export const metaReducers: MetaReducer<AppStateInterface>[] = !environment.production ? [] : [];
