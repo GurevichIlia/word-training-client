@@ -1,0 +1,27 @@
+<ng-container *ngIf="words && !words?.length && !isLoading">
+  <div class="text-center" *ngIf="selectedGroup?._id !== '2' && selectedGroup?._id !== '1' && !searchValue">
+    <span class="first-word-title">Empty group
+    </span>
+    <br>
+  </div>
+  <div class="text-center" *ngIf="words?.length === 0 && searchValue">
+    <span class="first-word-title">Word not found
+    </span>
+
+  </div>
+  <div class="text-center mt-2" *ngIf="selectedGroup?._id === '1' && !searchValue">
+    <span class="first-word-title">Add your first word<br>
+      or upload words from <a (click)="openCsvUploader.emit()">CSV <i  class="fas fa-file-csv"></i></a>
+      <br> or take from <a routerLink="/general-words">Shared
+      words <i class="fas fa-users"></i></a></span>
+  </div>
+
+
+  <div class="text-center mt-2" *ngIf="selectedGroup?._id === '2' && !searchValue">
+    <span class="first-word-title">Click
+      <img class="mb-3" style="width: 25px; height: 25px"
+        src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels.png" alt=""> in
+      your word list <br>
+      to add word to this group</span>
+  </div>
+</ng-container>

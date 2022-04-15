@@ -1,0 +1,43 @@
+.skeleton {
+  animation: loading 1.7s infinite linear;
+  background: #f6f7f8;
+  background-image: -webkit-linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+
+  &.word,
+  &.translation {
+    margin-bottom: 8px;
+    height: 12px;
+  }
+
+  &.favorite {
+    height: 30px;
+    margin-left: 40px;
+  }
+
+  &.progress {
+    margin-bottom: 5px;
+    height: 8px;
+
+  }
+
+  &.date {
+    height: 7px;
+    width: 100px;
+    margin-inline-start: auto;
+  }
+}
+
+
+
+
+@keyframes loading {
+  0% {
+    background-position: -100px;
+  }
+
+  100% {
+    background-position: 200px;
+  }
+}

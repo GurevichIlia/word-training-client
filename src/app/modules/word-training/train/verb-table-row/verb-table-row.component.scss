@@ -1,0 +1,31 @@
+:host {
+  direction: rtl;
+  text-align: justify;
+  --text-size: 22px;
+  --font-weight: 500
+}
+
+
+.pronoun {
+  font-size: var(--text-size);
+  padding: 5px 0;
+  font-weight: var(--font-weight);
+
+}
+
+.conj {
+  font-size: var(--text-size);
+  padding: 5px 0;
+  display: block;
+  font-weight: var(--font-weight);
+}
+
+.question-mark {
+  font-size: var(--text-size);
+  padding: 5px 0;
+  display: block;
+}
+
+.icon {
+  font-size: 20px;
+}

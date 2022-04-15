@@ -1,0 +1,78 @@
+<ng-container *ngIf="currentWord$ | async as word">
+  <div class="container">
+
+    <div class="counter" *ngIf="counterState$ | async as counterState">
+      <app-word-counter
+          [totalCardsLearned]="counterState.totalLearnedCards"
+          [wordsInGroup]="counterState.wordsInGroup.length"
+          [learnedCardsFromGroup]="counterState.uniqueWordsLearned"
+      ></app-word-counter>
+    </div>
+
+    <div class="word-card"
+        [@wordCardAnimator]="animationState$ | async"
+        (@wordCardAnimator.done)="onResetAnimationState()">
+
+      <app-word-card [word]="word">
+
+          <app-word-card-body *ngIf="(isVerbsTraining$ | async) === false" topSide [text]="word.word" [isFavorite]="word.isFavorite" (favoriteToggle)="favoriteToggle(word)"></app-word-card-body>
+          <app-word-card-body *ngIf="(isVerbsTraining$ | async) === false" downSide [text]="word.translation" [isFavorite]="word.isFavorite" (favoriteToggle)="favoriteToggle(word)"></app-word-card-body>
+
+            <app-verb-card-body
+              *ngIf="(isVerbsTraining$ | async) && (hebrewVerbTime$ | async) as hebrewVerbTime"
+              topSide
+              (favoriteToggle)="favoriteToggle(word)"
+              [verb]="word"
+              [time]="hebrewVerbTime">
+            </app-verb-card-body>
+            <app-verb-card-body
+              *ngIf="(isVerbsTraining$ | async) && (hebrewVerbTime$ | async) as hebrewVerbTime"
+              downSide
+              (favoriteToggle)="favoriteToggle(word)"
+              [verb]="word"
+              [time]="hebrewVerbTime">
+            </app-verb-card-body>
+      </app-word-card>
+
+    </div>
+      <small class="d-block pt-2 w-50" *ngIf="isShowPrevioudWordButton$ | async" (click)="previousWord()"><i class="fas fa-arrow-left"></i>  Previous word</small>
+  </div>
+
+  <nb-card class="knowledge-level-panel pr-3 pl-3 mt-4" [ngClass]="{'mt-4' : !(isVerbsTraining$ | async)}">
+    <div class="p-2 text-center question-title">
+      <span>How well do you know this word?</span>
+    </div>
+    <div class="row level-row justify-content-around">
+      <button class="col-2 level bad" size="small" (click)="nextWord(word, 1)" nbButton>1</button>
+      <button class="col-2 level better" size="small" (click)="nextWord(word, 2)" nbButton>2</button>
+      <button class="col-2 level medium" size="small" (click)="nextWord(word, 3)" nbButton>3</button>
+      <button class="col-2 level good" size="small" (click)="nextWord(word, 4)" nbButton>4</button>
+      <button class="col-2 level excellent" size="small" (click)="nextWord(word, 5)" nbButton>5</button>
+
+      <!-- <div class="col-2 level bad" (click)="nextWord(word, 1)">1</div>
+              <div class="col-2 level better" (click)="nextWord(word, 2)">2</div>
+              <div class="col-2 level medium" (click)="nextWord(word, 3)">3</div>
+              <div class="col-2 level good" (click)="nextWord(word, 4)">4</div>
+              <div class="col-2 level excellent" (click)="nextWord(word, 5)">5</div> -->
+    </div>
+  </nb-card>
+
+  <!--
+  <nb-icon icon="arrow-back" *ngIf="start" (click)="prevWord()"></nb-icon> <span class="ml-1" *ngIf="start">previous
+        word</span> -->
+  <div class="container">
+    <div class="row justify-content-center mt-2">
+      <!-- <button *ngIf="!start" type="buttom" (click)="onStart()" class="col-8 mb-2" nbButton
+                      style="background-color: darkorchid; border-color: darkorchid">Start</button> -->
+      <a class="col-8 mb-2 custom-button light"  (click)="stopTraining()">Stop train</a>
+      <!-- <button *ngIf="start" type="buttom" (click)="onKnow()" class="col-4 ml-2 mb-2" nbButton
+                      status="success">Know</button> -->
+    </div>
+  </div>
+</ng-container>
+
+
+
+<!-- <app-train [animationState]="animationState" [word]="currentTrainingWord$ | async" (resetAnimationState)="resetAnimationState()"
+(setKnowledgeLevel)="nextWordAndSetWordLevel($event)" (toTrainResult)="goToTrainResult()" *ngIf="start">
+</app-train> -->

@@ -1,0 +1,114 @@
+<nb-card class="main-content">
+
+  <nb-card-header>
+    <div class="sub-title">
+      <span> Find conjugations for hebrew verbs.</span>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body class="p-3">
+
+    <section class="settings mb-3">
+      <div class="d-flex justify-content-between">
+        <nb-checkbox status="basic" (checkedChange)="isShowUploader = !isShowUploader">CSV</nb-checkbox>
+        <!-- <nb-checkbox formControlName="past" status="basic">Past</nb-checkbox>
+        <nb-checkbox formControlName="present" status="basic">Present</nb-checkbox>
+        <nb-checkbox formControlName="future" status="basic">Future</nb-checkbox> -->
+      </div>
+    </section>
+
+    <section class="verb-input" *ngIf="!isShowUploader">
+      <app-verbs-input (send)="getConjugationsFromVerbsAsString($event)"></app-verbs-input>
+    </section>
+
+    <section class="csv-manager" *ngIf="isShowUploader">
+      <app-csv-verbs-input (send)="getConjugationsFromCsv($event)" ></app-csv-verbs-input>
+    </section>
+
+  </nb-card-body>
+</nb-card>
+
+<ng-container *ngIf="(verbs$ | async) as verbs">
+  <div class="master-checkbox" *ngIf="(verbs.length > 0)" >
+    <nb-card>
+      <nb-card-body class="d-flex justify-content-between">
+        <div>
+          <a class="custom-button dark small get-conjugations-btn w-100" (click)="openAddVerbsModal()">Add to my verbs</a>
+        </div>
+        <div>
+
+        </div>
+        <nb-checkbox status="basic" [checked]="true" (checkedChange)="selectVerbsForSaving()">Select All ({{verbs.length}})</nb-checkbox>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <section class="result-conjugations-list">
+    <ng-container *ngIf="(verbs.length > 0) else notFound">
+
+      <app-conjugations-list
+        [conjugationCardRef]="conjugationCardRef"
+        [verbs]="verbs">
+      </app-conjugations-list>
+
+    </ng-container>
+
+    <ng-template #conjugationCardRef let-verb>
+      <app-conjugation-card [verbWithConjugations]="verb">
+        <nb-checkbox checkbox status="basic"
+         [checked]="verb.selected"
+         (checkedChange)="this.selectVerbForSaving(verb)"
+         >
+        </nb-checkbox>
+      </app-conjugation-card>
+    </ng-template>
+
+    <ng-template #notFound>
+      <nb-card>
+        <nb-card-body>
+          <span class="title">Verbs not found</span>
+        </nb-card-body>
+      </nb-card>
+    </ng-template>
+
+  </section>
+</ng-container>
+
+
+
+<!-- SELECT GROUP MODAL -->
+<ng-template #selectGroupModalTemplateRef let-ref="dialogRef">
+  <app-modal-ui
+    [isLoading]="saveVerbsModalLoading$ | async"
+    title="Select Group"
+    mode="create"
+    (cancel)="ref.close()"
+    (save)="addVerbsToUserWords()"
+    >
+
+
+    <div class="select-group-modal-container d-flex align-items-baseline">
+      <app-group-list
+        class="flex-grow-1"
+        [groups]="groups$ | async"
+        [selectedGroup]="selectedGroup$ | async"
+        (selectGroup)="onSelectGroup($event)">
+      </app-group-list>
+        <i (click)="openNewGroupModal()" class="fas fa-plus add-group-icon"></i>
+    </div>
+  </app-modal-ui>
+
+</ng-template>
+
+
+<ng-template #addGroupModalTemplateRef let-data let-ref="dialogRef">
+  <app-modal-ui
+    [isLoading]="addGroupModalLoading$ | async"
+    title="Add New Group"
+    mode="create"
+    (save)="addNewGroup()"
+    (cancel)="ref.close()">
+
+    <input [formControl]="groupName" class="mb-1 col-12" type="text" fieldSize="small" nbInput placeholder="Group name">
+
+  </app-modal-ui>
+</ng-template>

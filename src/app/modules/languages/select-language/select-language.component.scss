@@ -1,0 +1,51 @@
+@import '../../../../styles/variables.scss';
+
+.submitBtnBox {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+}
+
+.menu {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+::ng-deep .matmenu {
+  padding: 10px;
+}
+
+.menuitem {
+  width: 140px;
+  background-color: white;
+  padding: 20px;
+}
+
+.menuitem:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+nb-card-header {
+  display: flex;
+}
+
+nb-card-header nb-icon {
+  font-size: 2.0rem;
+}
+
+.sub-title {
+  color: $titleColor
+}
+
+.title {
+  font-size: 18px;
+}
+
+.language-name {
+  font-size: 16px;
+}
+
+.list-item {
+  justify-content: space-between;
+}

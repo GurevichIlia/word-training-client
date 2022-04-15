@@ -1,0 +1,48 @@
+.translator-container {
+  background-color: white;
+  height: calc(100vh - 100px);
+  overflow: auto;
+
+  .header {
+    background: whitesmoke;
+    padding: 10px 0 0;
+    box-shadow: 0px 0px 18px 1px #dcdcdc8c;
+
+    .swap-icon {
+      font-size: 25px;
+    }
+  }
+
+  .content {
+    padding-top: 20px;
+    min-height: 400px;
+
+    label {
+      font-weight: 600
+    }
+
+    .text {}
+
+    .translation {}
+  }
+
+  .text-label,
+  .translation-label {
+    i {
+      margin-right: 5px;
+      font-size: 18px;
+    }
+  }
+
+  .input-group {
+
+    textarea {
+      min-height: 100px;
+      box-shadow: 0px 0px 18px 1px #dcdcdc8c;
+      border: none;
+      resize: none;
+      font-size: 20px
+    }
+  }
+
+}

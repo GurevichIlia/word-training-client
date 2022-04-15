@@ -1,0 +1,18 @@
+:host {
+  --label-size: 14px;
+  --toggle-color: #8238a7e0
+}
+
+
+.toggle-label {
+  font-size: var(--label-size)
+}
+
+.checked {
+
+  .toggle.checked {
+    background-color: var(--toggle-color);
+    border-color: var(--toggle-color);
+  }
+
+}

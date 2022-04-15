@@ -1,0 +1,59 @@
+<!-- <table> -->
+  <!-- <tr>
+    <th class="word-name">{{_verb?.word}}</th>
+    <th class="icon">
+      <i *ngIf="showText" (click)="masterShowToggle()" class="fas fa-eye-slash"></i>
+      <i *ngIf="!showText" (click)="masterShowToggle()" class="fas fa-eye"></i>
+    </th>
+  </tr> -->
+
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-5 word-name">{{_verb?.word}}</div>
+      <div class="col-5 word-translation">{{_verb?.translation}}</div>
+      <div class="col-1 icon">
+        <i *ngIf="showText" (click)="masterShowToggle()" class="fas fa-eye-slash"></i>
+        <i *ngIf="!showText" (click)="masterShowToggle()" class="fas fa-eye"></i>
+      </div>
+    </div>
+  </div>
+
+
+
+  <ng-container *ngFor="let conjugation of verbTableModel">
+   <app-verb-table-row [conjugation]="conjugation" [showText]="showText" ></app-verb-table-row>
+  </ng-container>
+
+  <!-- <tr>
+    <td>אני</td>
+  </tr>
+  <tr>
+    <td>אַתה</td>
+    <td>תִּרְאֶה</td>
+  </tr>
+  <tr>
+    <td>את</td>
+    <td>תִּרְאִי</td>
+  </tr>
+  <tr>
+    <td>הוא</td>
+    <td>יִרְאֶה</td>
+  </tr>
+  <tr>
+    <td>היא</td>
+    <td>תִּרְאֶה</td>
+  </tr>
+  <tr>
+    <td>אנחנו</td>
+    <td>נִרְאֶה</td>
+  </tr>
+  <tr>
+    <td>אתם / אתן</td>
+    <td>תִּרְאוּ</td>
+  </tr>
+  <tr>
+    <td>הם / הן</td>
+    <td>יִרְאוּ</td>
+  </tr>
+</table> -->
+<!-- </table> -->

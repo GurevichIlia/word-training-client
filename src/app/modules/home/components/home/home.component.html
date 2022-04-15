@@ -1,0 +1,22 @@
+
+<app-header></app-header>
+<nb-layout>
+  <nb-layout-column class="pr-0 pl-0 p-0">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-xl-6 p-0">
+          <app-loader [show]="globalLoader$ |async"></app-loader>
+
+          <router-outlet></router-outlet>
+
+        </div>
+
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>
+<div class="footer">
+  <div class="fixed-footer">
+    <app-footer></app-footer>
+  </div>
+</div>

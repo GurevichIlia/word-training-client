@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-header class="d-flex justify-content-between">
+    <div class="verb-name">
+      {{verbWithConjugations.verb}}
+    </div>
+    <div class="select-checkbox">
+      <ng-content select="[checkbox]"></ng-content>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body>
+    <nb-accordion [multi]="true">
+      <nb-accordion-item *ngFor="let time of times">
+        <nb-accordion-item-header>
+          {{time | verbTime}}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+
+          <ng-container *ngFor="let conjugationTemplate of verbWithConjugations[time] | conjugationTemplate : time">
+            <ng-container *ngIf="conjugationTemplate else ">
+                <app-verb-table-row
+                [conjugation]="conjugationTemplate"
+                [showText]="true"
+                [isShowEyeIcon]="false"
+                [style.--text-size]="'20px'"
+                [style.--font-weight]="'500'"
+                >
+              </app-verb-table-row>
+            </ng-container>
+          </ng-container>
+
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>

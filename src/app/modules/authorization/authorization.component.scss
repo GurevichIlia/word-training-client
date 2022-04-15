@@ -1,0 +1,39 @@
+.full-block {
+  height: 100vh !important;
+  // background: rgb(249, 141, 58) !important;
+  // background: linear-gradient(266deg, rgba(249, 141, 58, 1) 0%, rgba(133, 22, 138, 1) 90%) !important;
+}
+
+.card {
+  nb-card-body {
+    padding: 40px 20px !important;
+
+  }
+
+  min-height: 300px;
+}
+
+.logo {
+  margin-right: 5px
+}
+
+tui-wrapper[data-appearance='custom'] {
+  background: #8238a7e0;
+  color: #fff;
+
+  &[data-state='hovered'] {
+    background: #a381ff;
+  }
+
+  &[data-state='pressed'] {
+    background: #8f75d1;
+  }
+
+  &[data-state='disabled'] {
+    background: #eaecee;
+  }
+}
+
+.submit-btn {
+  width: 80%;
+}

@@ -1,0 +1,29 @@
+<div class="main-box p-3 text-center">
+  <div class="content">
+    <span class="title">Learn words anywhere, even offline.</span>
+    <br>
+
+    <ng-container *ngIf="!data; else iosSuggestion">
+      <a  size="medium"  class="custom-button dark small mt-2 mb-2"
+        (click)="onInstallApp()">Install</a>
+      <br>
+      <small class="sub-title" (click)="dialogRef.close()">Not now</small>
+    </ng-container>
+
+    <ng-template #iosSuggestion>
+      <div class="click-title">
+        <div class="ios-title">Click</div> <img width="25px" height="25px"
+          src="../../../../assets/icons/14_upload_share_playlist_import_data_file-512.png" alt=""> and
+      </div>
+
+      <br>
+      <span class="ios-title add-home">Add to Home Screen
+        <!-- <nb-icon icon="plus-square-outline">
+        </nb-icon> -->
+      </span>
+      <br>
+      <small class="sub-title" (click)="iosInstallSuggestion()">Got it</small>
+    </ng-template>
+
+  </div>
+</div>

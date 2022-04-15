@@ -1,0 +1,17 @@
+<div class="sub-title mb-3">
+  <span> Upload CSV file with your verbs.</span>
+</div>
+<app-csv-manager
+  [isResetCsvState]="isResetCsvHandlerState$ | async"
+  [isLoading]="csvLoading$ | async"
+  [expanded]="true"
+  (upload)="getConjugationsFromCsv($event)"
+>
+
+  <div class="scv-instruction-dialog">
+    <span class="title">Verbs can be added via CSV file. <br> Below is an example of table structure.</span> <br>
+    <span class="title">File name example: <i>"verbs.csv"</i> </span>
+    <img width="100%" src="../../../../../assets/Photos/verbs_example.png" alt="">
+  </div>
+
+</app-csv-manager>

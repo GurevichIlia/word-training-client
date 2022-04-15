@@ -1,0 +1,56 @@
+@import './../../../../styles/variables.scss';
+
+.icons {
+  width: 25px
+}
+
+img {
+  margin-left: auto;
+}
+
+.menu-button {
+  background-color: darkorchid !important;
+  border-color: darkorchid !important;
+}
+
+.change-group {
+  background-color: #f2863e !important;
+  border-color: #f2863e !important;
+
+}
+
+.level {
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+}
+
+.group-name-box {
+  display: block;
+  padding: 10px;
+
+
+  .group-title {
+    font-size: 17px;
+  }
+
+  .group-name {
+    font-size: 20px;
+    word-break: break-all;
+  }
+}
+
+.word {
+  font-size: 22px;
+  font-family: 'Muli', "Helvetica Neue", sans-serif !important;
+  font-weight: 600;
+}
+
+.translation {
+  margin-left: 10px;
+  font-size: 18px;
+  font-style: italic;
+  font-family: 'Muli', "Helvetica Neue", sans-serif !important;
+  color: $titleColor;
+
+}

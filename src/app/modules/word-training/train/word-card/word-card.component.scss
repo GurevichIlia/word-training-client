@@ -1,0 +1,23 @@
+.word-card {
+  min-height: 200px;
+  max-height: 390px;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.flipToggle {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  color: #9b9fab;
+
+  i{
+    margin-left: 5px
+  }
+}
+
+.card-title {
+  color: #230f0f
+}
+
+

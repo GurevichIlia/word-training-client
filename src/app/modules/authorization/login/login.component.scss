@@ -1,0 +1,48 @@
+@import '../../../../styles/variables.scss';
+
+form {
+  margin-top: 20px;
+}
+
+.confirm-btn {
+  background-color: $purple !important;
+  border-color: $purple !important;
+
+}
+
+.error-message {
+  font-size: 12px;
+  color: rgba(212, 50, 50, 0.808)
+}
+
+.error-box {
+  background-color: #ff000026;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.success-message {
+  font-size: 12px;
+  color: rgba(84, 201, 94, 0.808)
+}
+
+.success-box {
+  background-color: #3cff0026;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.error {
+  background-color: #ff000026 !important;
+}
+
+.login-title {
+  font-size: 30px;
+
+}
+
+.sign-up-btn{
+  cursor: pointer;
+}
+
+

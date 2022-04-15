@@ -1,0 +1,58 @@
+<!-- <app-loader [show]="isLoading$ |async"></app-loader> -->
+<nb-card>
+  <!-- <nb-card-header class="title">
+    <span>Shared words</span>
+  </nb-card-header> -->
+  <nb-card-body>
+    <div class="sub-title">
+      <span> Add new words to your list or share your words with everyone.</span>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!-- <ng-container *ngIf="(generalWords$ | async) as words;"> -->
+  <div class="search" *ngIf="(generalWords$ | async)">
+    <div>
+      <app-search [filterValue]="filterControl" (addWord)="getActionFromChildren($event)"></app-search>
+
+    </div>
+  </div>
+
+
+  <nb-card>
+    <nb-card-body>
+      <app-word-list
+        [isLoading]="isLoading$ |async"
+        [userId]="userId$ | async"
+        [isShowDefaultOptions]="false"
+        (action)="getActionFromChildren($event)"
+        [menuItems]="wordMenuItems"
+        [words]="generalWords$ | async | wordsFilter : filterControl.value">
+      </app-word-list>
+
+      <ng-container *ngIf="(generalWords$ | async) as words">
+        <div class="sub-title" *ngIf="words?.length === 0 && !filterControl.value">
+          <span>Unfortunately no one has added words yet. <br> Be the first <br> Add words from <a
+              routerLink="/vocabulary">Your list <i class="fas fa-list-alt"></i></a> </span>
+        </div>
+
+        <div class="text-center" *ngIf="words?.length === 0 && filterControl.value">
+          <span class="first-word-title">Word not found
+          </span>
+
+        </div>
+      </ng-container>
+
+
+    </nb-card-body>
+  </nb-card>
+<!-- </ng-container> -->
+
+<!--
+<ng-template #loader>
+  <nb-card [nbSpinner]="true" nbSpinnerStatus="basic">
+    <nb-card-body>
+      Loading...
+    </nb-card-body>
+  </nb-card>
+</ng-template> -->

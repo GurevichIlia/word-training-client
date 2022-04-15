@@ -1,0 +1,49 @@
+<div class="main-box">
+
+  <!-- <div class="d-flex header">
+    <span (click)="goBack()" class="back-btn"><span class="back-btn-icon">{{'^'}}</span></span>
+  </div> -->
+<ng-container *ngIf="isCloseBottomSheet$ | async"></ng-container>
+  <ng-container *ngIf="words$ | async as words">
+
+
+    <div class="d-flex search-box" *ngIf="!(loading$ | async)">
+      <i (click)="onClose()" class="back-btn fas fa-arrow-circle-down"></i>
+    <!-- <span  class="back-btn"><span class="back-btn-icon">{{'^'}}</span></span> -->
+
+      <span class="search">
+        <app-search [filterValue]="filterControl"></app-search>
+      </span>
+      <div class="add-btn-block" *ngIf="selectedWords.length > 0">
+        <a
+        size="tiny"
+        class="custom-button dark small ml-2"
+         (click)="assignWords(selectedWords)">Add</a>
+      </div>
+
+    </div>
+
+    <app-loader [show]="loading$ | async"></app-loader>
+
+    <div #wordList class="word-list">
+      <app-word-list
+        [showMoreItems]="showMoreElements$ | async"
+        [words]="words | wordsFilter: filterControl.value"
+        (action)="getAction($event)"
+        [isShowMenu]="false"
+        [isShowDefaultOptions]="false">
+      </app-word-list>
+    </div>
+
+
+
+
+    <ng-container *ngIf="words?.length === 0">
+      <div class="text-center mt-2">
+        <span class="first-word-title">Word not found</span>
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+</div>

@@ -1,0 +1,42 @@
+<!-- <nb-card class="groups-modal">
+  <nb-card-header class="modal-header">
+    <h4>{{title}}</h4>
+
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng-content></ng-content>
+  </nb-card-body>
+
+  <nb-card-footer class="footer">
+    <button type="button" class="btn btn-danger" [disabled]="isLoading" (click)="actionHandler('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" *ngIf="isNewMode() && !isLoading" (click)="actionHandler('save')">Submit</button>
+    <button type="button" class="btn btn-primary" *ngIf="!isNewMode() && !isLoading"  (click)="actionHandler('update')">Update</button>
+
+    <button class="btn btn-primary" type="button" disabled *ngIf="isLoading">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading...
+    </button>
+  </nb-card-footer>
+</nb-card> -->
+
+<mat-card>
+  <mat-card-header >
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-content></ng-content>
+  </mat-card-content>
+  <mat-card-actions  class="footer">
+    <button type="button" class="btn cancel-button" [disabled]="isLoading" (click)="actionHandler('cancel')">Cancel</button>
+    <button type="button" class="btn submit-button" *ngIf="mode === 'create' && !isLoading" (click)="actionHandler('save')">Submit</button>
+    <button type="button" class="btn submit-button" *ngIf="mode === 'update' && !isLoading"  (click)="actionHandler('update')">Update</button>
+    <button type="button" class="btn submit-button" *ngIf="mode === 'delete' && !isLoading"  (click)="actionHandler('save')">Delete</button>
+    <button class="btn submit-button" type="button" disabled *ngIf="isLoading">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading...
+    </button>
+  </mat-card-actions>
+</mat-card>
+

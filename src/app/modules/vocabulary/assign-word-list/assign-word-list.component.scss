@@ -1,0 +1,66 @@
+@import '../../../../styles/variables.scss';
+
+.main-box {
+  background-color: white;
+  // height: 100%;
+  // overflow: auto;
+  width: 35vw;
+}
+
+.word-list {
+  height: 100vh;
+  overflow: auto;
+}
+
+.submit-btn-box {
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.first-word-title {
+  color: $titleColor;
+
+}
+
+.search {
+  width: 100%;
+  // margin-left: 5px;
+}
+
+.search-box {
+  z-index: 100;
+  position: sticky;
+  top: 0;
+  background-color: whitesmoke;
+  padding: 10px 15px 10px 15px;
+  text-align: center;
+  box-shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
+}
+
+.header {
+  justify-content: space-around;
+}
+
+@media all and (max-width: 600px) {
+  .main-box {
+    width: 100vw
+  }
+}
+
+.back-btn {
+  font-size: 30px;
+  padding-right: 8px;
+
+  .back-btn-icon {
+    font-weight: 500;
+    font-size: 22px;
+  }
+}
+
+.add-btn-block{
+  display: flex;
+  width: 80px;
+}

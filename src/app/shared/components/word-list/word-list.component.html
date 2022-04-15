@@ -1,0 +1,44 @@
+<i class="fas fa-angle-double-up to-top-button"  *ngIf="isShowGoToTopButton$ | async" (click)="goToTop()"></i>
+    <div class="word-list"
+      #wordList
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="10"
+      (scrolled)="onScroll()">
+
+
+      <ng-container *ngIf="words?.length !== 0 ">
+
+        <div  class="search-results" >
+
+          <ng-container *ngFor="let word of words | slice : 0 : showItems ; trackBy: trackWords; let i = index">
+
+            <app-word
+              (action)="sendAction($event)"
+              [userId]="userId" [word]="word"
+              [isShowMenu]="isShowMenu"
+              [menuItems]="menuItems"
+              [isShowDefaultOptions]="isShowDefaultOptions">
+
+            </app-word>
+
+
+          </ng-container>
+
+        </div>
+
+
+      </ng-container>
+      <ng-container *ngIf="isLoading">
+          <div *ngFor="let i of skeletonArrIndexes">
+            <app-word-skeleton></app-word-skeleton>
+          </div>
+      </ng-container>
+
+
+    </div>
+
+
+
+
+

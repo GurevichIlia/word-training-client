@@ -1,0 +1,61 @@
+<div class="translator-container container">
+
+  <form [formGroup]="translationForm">
+    <div class="row header align-items-baseline">
+      <mat-form-field class="col-5">
+        <mat-select placeholder="Language" formControlName="textLang">
+          <mat-option *ngFor="let lang of supportedLanguagesForTranslation$ | async" [value]="lang.shortcut">
+            {{lang.language}}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+
+      <div class="swap-icon-block col-2 text-center">
+        <i (click)="swapLanguages()" class="fas fa-exchange-alt swap-icon "></i>
+      </div>
+
+      <mat-form-field class="col-5">
+        <mat-select placeholder="Language" formControlName="translationLang">
+          <mat-option *ngFor="let lang of supportedLanguagesForTranslation$ | async" [value]="lang.shortcut">
+            {{lang.language}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="content">
+      <div class="text d-block">
+          <div class="text-label d-flex align-items-center justify-content-between">
+            <label>Text</label>
+            <i *ngIf="text.value" (click)="copy(text.value)" class="far fa-copy"></i>
+          </div>
+        <div class="input-group">
+          <textarea class="form-control"  formControlName="text" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="translation d-block mt-3">
+        <div class="translation-label d-flex align-items-center justify-content-between">
+          <label>Translation</label>
+          <i *ngIf="translation.value" (click)="copy(translation.value)" class="far fa-copy"></i>
+        </div>
+        <div class="input-group">
+          <textarea class="form-control" formControlName="translation" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-2" *ngIf="translation.value">
+        <button  nbButton size="tiny">Add to my words</button>
+      </div>
+
+        <a (click)="translateText()" class="custom-button light mb-3 w-100 mt-5" *ngIf="!(loading$ | async)">Translate</a>
+        <a class="custom-button light mb-3 w-100 mt-5" [ngClass]="{'disabled': true}"  *ngIf="loading$ | async">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </a>
+
+    </div>
+
+  </form>
+</div>

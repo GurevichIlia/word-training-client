@@ -1,0 +1,46 @@
+@import '../../../../styles/variables.scss';
+
+
+mat-expansion-panel {
+  box-shadow: none !important;
+  border: 1px solid whitesmoke;
+
+}
+
+mat-expansion-panel-header {
+  padding: 0 0 0 15px !important;
+
+  i {
+    font-size: 20px;
+    margin-left: auto;
+  }
+}
+
+.upload {
+  min-height: 100px;
+
+  div {
+    position: relative;
+  }
+
+  i.fa-upload {
+    color: #191a1a4d;
+    font-size: 80px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: -30px;
+  }
+
+  i.fa-info {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #696a6a;
+    padding-right: 30px;
+    position: absolute;
+    z-index: 10;
+  }
+
+
+}
+
+

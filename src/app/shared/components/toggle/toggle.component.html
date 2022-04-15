@@ -1,0 +1,12 @@
+<!-- <div class="verbs-toggle d-flex flex-column text-justify" *ngIf="isHebrew$ | async"> -->
+
+  <nb-toggle
+    *ngIf="isHebrew$ | async"
+    class="checked"
+    [checked]="checked"
+    (checkedChange)="onCheck()"
+    >
+    {{label}}
+  </nb-toggle>
+
+<!-- </div> -->

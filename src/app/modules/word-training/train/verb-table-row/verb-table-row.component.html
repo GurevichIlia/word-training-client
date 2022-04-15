@@ -1,0 +1,26 @@
+<!-- <tr>
+  <td>{{conjugation?.hebPronoun}}</td>
+  <td>
+    <span *ngIf="showText">{{conjugation?.value}}</span>
+    <span *ngIf="!showText">? ? ? ?</span>
+  </td>
+  <td class="icon">
+    <i *ngIf="showText" (click)="showToggle()" class="fas fa-eye-slash"></i>
+    <i *ngIf="!showText" (click)="showToggle()" class="fas fa-eye"></i>
+  </td>
+</tr> -->
+
+
+<div class="container">
+  <div class="row align-items-center mb-1">
+    <div class="col-5 pronoun">{{conjugation?.hebPronoun}}</div>
+    <div class="col-5 ">
+      <span class="conj" *ngIf="showText">{{conjugation?.value}}</span>
+      <span class="question-mark" *ngIf="!showText">? ? ? ?</span>
+    </div>
+    <div class="col-1" *ngIf="isShowEyeIcon">
+      <i *ngIf="showText" (click)="showToggle()" class="fas fa-eye-slash icon"></i>
+      <i *ngIf="!showText" (click)="showToggle()" class="fas fa-eye icon"></i>
+    </div>
+  </div>
+</div>

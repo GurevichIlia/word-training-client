@@ -1,0 +1,14 @@
+<div class="word-list"
+  #wordList
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="10"
+  (scrolled)="onScroll()">
+
+  <ng-container *ngFor="let verb of verbs | slice : 0 : showItems ; trackBy: trackWords; let i = index">
+    <ng-container *ngTemplateOutlet="conjugationCardRef; context: {$implicit: verb}"></ng-container>
+  </ng-container>
+
+</div>
+
+

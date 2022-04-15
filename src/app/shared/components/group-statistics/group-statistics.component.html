@@ -1,0 +1,26 @@
+<mat-expansion-panel class="group-statistics" hideToggle [expanded]="expanded" [ngStyle]="{'background': styleConfig.background, 'border': styleConfig.border}">
+  <mat-expansion-panel-header>
+    <mat-panel-description class="text-center">
+      <span>{{title}}</span>
+      <i class="fa fa-bar-chart" aria-hidden="true"></i>
+
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-container  *ngFor="let knowledge of statistics?.knowledgeLevel">
+    <div [hidden]="(knowledge.level === 0 && isHideNotLearnedWords)">
+      <div class="d-flex mt-1 align-items-baseline">
+            <div
+            class="stat-progress-bar"
+            [style.backgroundColor]="knowledge.color"
+            [style.width]="knowledge.level ? (knowledge.level | convertToPercent) + '%': '100%'">
+          </div>
+          <small class="ml-2">{{knowledge.wordQuantity}}</small>
+      </div>
+
+    </div>
+
+
+  </ng-container>
+</mat-expansion-panel>
+
+<!-- <span class="title">Statistics</span> -->

@@ -1,0 +1,16 @@
+@import '../../../../styles/variables.scss';
+
+.arrow {
+  font-size: 25px;
+  color: $titleColor;
+}
+
+.logo {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.version{
+  position: absolute;
+
+  bottom: -355px;
+}

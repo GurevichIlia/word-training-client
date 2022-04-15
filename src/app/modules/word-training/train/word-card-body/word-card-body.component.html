@@ -1,0 +1,14 @@
+<div class="word m-auto">
+  <span [ngStyle]="{'font-size': text?.length > 11 ? '30px' : '35px'}">{{text}}</span>
+
+</div>
+
+<div class="w-100">
+  <!-- (tap)="addToFavorites(word)" -->
+  <!-- (tap)="removeFromFavorites(word)" -->
+  <img class="scaleIn" (click)="favorite()" *ngIf="!isFavorite" style="width: 30px; height: 30px"
+    src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels.png" alt="">
+  <img class="scaleIn" (click)="favorite()" *ngIf="isFavorite" style="width: 30px; height: 30px"
+    src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels1.png" alt="">
+
+</div>

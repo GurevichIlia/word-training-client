@@ -1,0 +1,19 @@
+.matmenu {
+  padding: 10px;
+
+}
+
+.menuitem {
+  min-width: 150px;
+  background-color: white;
+  padding: 20px;
+}
+
+.menuitem:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+button {
+  outline: none
+}

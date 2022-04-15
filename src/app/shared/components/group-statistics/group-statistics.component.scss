@@ -1,0 +1,28 @@
+.stat-progress-bar {
+  height: 10px;
+  border-radius: 10px;
+  // background-color: #6c7bec;
+  transition: 1.5s;
+  animation: move 2s;
+
+  @keyframes move {
+    from {
+      width: 0px;
+    }
+  }
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+  border: 1px solid whitesmoke;
+
+}
+
+mat-expansion-panel-header{
+  padding: 0 0 0 15px !important;
+
+  i {
+    font-size: 20px;
+    margin-left: auto;
+  }
+}

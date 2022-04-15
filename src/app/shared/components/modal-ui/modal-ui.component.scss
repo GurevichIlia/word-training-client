@@ -1,0 +1,35 @@
+@import '../../../../styles/variables.scss';
+
+mat-card-title, mat-card-subtitle {
+  overflow-wrap: anywhere;
+}
+
+.modal-header {
+  background-color: whitesmoke !important;
+  margin-bottom: 20px;
+
+  h4 {
+    color: $titleColor !important
+  }
+
+}
+
+
+.wordDialogBox {
+  width: 340px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer>button {
+  width: 140px;
+  margin: 5px;
+}
+
+.mat-card {
+  box-shadow: none;
+  padding: 0;
+}

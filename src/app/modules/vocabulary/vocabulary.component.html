@@ -1,0 +1,144 @@
+<!-- <mat-error *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}</mat-error> -->
+
+
+<!-- <app-loader [show]="vocabularyLoader$ | async"></app-loader> -->
+<nb-card class="main-content">
+
+
+  <nb-card-header>
+    <div class="d-flex align-items-center" *ngIf=" !(vocabularyLoader$ | async) && userWordsFiltredByGroupAndSearchValue">
+      <span [hidden]="userWordsFiltredByGroupAndSearchValue.length === 0 && !searchValueControl.value" class="search">
+        <app-search [filterValue]="searchValueControl" (addWord)="getActionFromChildren($event)">
+
+        </app-search>
+      </span>
+    </div>
+   </nb-card-header>
+  <nb-card-body class="p-3">
+
+  <ng-container word-type-toggle *ngIf="isShowVerbsToggle$ | async">
+    <div class="mb-2">
+      <button class="mr-2" nbButton (click)="onShowOnlyVerbs()" size="tiny">{{(isShowOnlyVerbs$ | async) ? 'All' : 'Verbs'}}</button>
+      <button class="conjugations-button" nbButton  size="tiny"><a [routerLink]="['/conjugations']">Conjugations</a></button>
+    </div>
+  </ng-container>
+
+  <app-groups>
+    <!-- <ng-container word-type-toggle *ngIf="isShowVerbsToggle$ | async">
+      <div>
+        <button nbButton (click)="onShowOnlyVerbs()" size="tiny">{{(isShowOnlyVerbs$ | async) ? 'All' : 'Verbs'}}</button>
+        <button nbButton (click)="onShowOnlyVerbs()" size="tiny" *ngIf="isShowVerbsToggle$ | async"><a [routerLink]="['/conjugations']">Conjugations</a></button>
+      </div>
+    </ng-container> -->
+  </app-groups>
+
+
+    <ng-container *ngIf="(selectedGroup$ | async ) as selectedGroup">
+      <div class="d-flex">
+        <a *ngIf="selectedGroup._id !== '2'" (click)="openModal('New word', modalUiWrapper)"
+          class="custom-button light add-word-btn mb-3 w-100">Add word</a>
+        <!-- <a [routerLink]="['/conjugations']" *ngIf="isShowVerbsToggle$ | async"> <i class="fas fa-list-alt"></i></a> -->
+        <!-- <a [routerLink]="['/translator']">  <i class="fas fa-language" ></i></a> -->
+
+        <i *ngIf="selectedGroup._id !== '2'" class="fas fa-file-csv" (click)="showUploader()"></i>
+
+      </div>
+      <!-- <button *ngIf="selectedGroup !== '1' && selectedGroup !== '2'" (click)="showWordsForAssign()"
+        class="purpleButton mb-3 w-100" type="submit" nbButton size="small">Add words</button> -->
+    </ng-container>
+
+
+    <section class="mb-4 statistics">
+      <app-group-statistics [statistics]="groupStatistics$ | async"></app-group-statistics>
+    </section>
+
+    <section class="csv-manager">
+      <app-csv-manager
+        [isResetCsvState]="isResetCsvHandlerState$ | async"
+        [isLoading]="csvLoading$ | async"
+        [expanded]="isShowUploader"
+        (upload)="addWordsFromCsv($event)"
+      >
+
+        <div class="scv-instruction-dialog">
+          <span class="title">Words can be added even easier using CSV file. <br>
+            Below is an example table: <i>"your-filename.csv"</i> </span>
+          <img width="100%" src="../../../../assets//Photos//csvExample.png" alt="">
+        </div>
+
+      </app-csv-manager>
+    </section>
+
+    <app-word-list
+      (action)="getActionFromChildren($event)"
+      [isLoading]="vocabularyLoader$ | async"
+      [filterValue]="searchValueControl.valueChanges"
+      [menuItems]="wordMenuItems$ | async"
+      [selectedGroup]="selectedGroup$ | async"
+      [words]="userWordsFiltredByGroupAndSearchValue">
+    </app-word-list>
+
+
+    <app-status-message
+      (openCsvUploader)="showUploader()"
+      [words]="userWordsFiltredByGroupAndSearchValue"
+      [searchValue]="searchValueControl.value"
+      [selectedGroup]="selectedGroup$ | async"
+      [isLoading]="vocabularyLoader$ | async">
+    </app-status-message>
+
+
+  </nb-card-body>
+
+</nb-card>
+
+<div class="assign-words-container">
+
+</div>
+
+<!-- WORD FORM TEMPLATE -->
+<ng-template #wordFormTemplate>
+  <form [formGroup]="wordForm">
+    <div class="d-flex">
+      <nb-form-field class="w-100 mb-2">
+        <input formControlName="word" type="text" fieldSize="small" nbInput placeholder="Word">
+        <i *ngIf="wordControl.value" (click)="copyToClipboard(wordControl.value)" nbSuffix class="far fa-copy "></i>
+      </nb-form-field>
+      <!-- <input formControlName="word" class="mb-1 w-100" type="text" fieldSize="small" nbInput placeholder="Word"> -->
+      <!-- <div class="translate-icon-block">
+        <i class="fas fa-language p-2"></i>
+      </div> -->
+    </div>
+    <nb-form-field class="w-100 mb-2">
+      <input formControlName="translation" type="text" fieldSize="small" nbInput placeholder="Translation">
+      <i *ngIf="translationControl.value" (click)="copyToClipboard(translationControl.value)" nbSuffix class="far fa-copy"></i>
+    </nb-form-field>
+
+
+    <nb-checkbox status="basic" formControlName="isVerb" >Verb</nb-checkbox>
+
+  </form>
+  <!-- <mat-error *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}</mat-error> -->
+</ng-template>
+
+
+<!-- MODAL EDIT, ADD WORD  -->
+<ng-template #modalUiWrapper let-data let-ref="dialogRef">
+  <app-modal-ui [isLoading]="modalLoader$ | async" [title]="titleForModal"
+    [mode]="titleForModal === 'Edit word' ? 'update' : 'create'" (save)="addNewWord()" (update)="updateWord()"
+    (cancel)="closeWordModal()">
+    <ng-container *ngTemplateOutlet="wordFormTemplate"></ng-container>
+  </app-modal-ui>
+</ng-template>
+
+<!-- MODAL DELETE WORD
+<ng-template #deleteWordModal let-data let-ref="dialogRef">
+  <app-modal-ui
+    [isLoading]="modalLoader$ | async"
+    [title]="titleForModal"
+    [mode]="'delete'"
+    (save)="deleteWord()"
+    (cancel)="closeWordModal()">
+    <mat-error *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}</mat-error>
+  </app-modal-ui>
+</ng-template> -->

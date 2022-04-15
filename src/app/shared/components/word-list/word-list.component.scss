@@ -1,0 +1,26 @@
+.to-top-button {
+  position: fixed;
+  bottom: 96px;
+  left: 20px;
+  z-index: 10;
+  font-size: 50px;
+  color: rgba(20, 18, 18, 0.534);
+  animation-name: fadeShow;
+  animation-duration: 1s;
+}
+
+/* The animation code */
+@keyframes fadeShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.word-list {
+  transition: all 0.3s;
+  animation: fadeShow 0.3s linear;
+}

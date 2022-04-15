@@ -1,0 +1,32 @@
+<div class="container-fluid header">
+  <div class="row align-items-center h-100" *ngIf="isLoggedIn$ | async">
+    <div class="col-3 pr-0">
+      <span class="language-name"><a routerLink="/settings/languages">{{(currentLanguage$ | async)?.name}}</a> </span>
+      <br>
+      <span class="words-quantity" [hidden]="!((currentLanguage$ | async)?.name)">{{ quantityWords$ | async}}
+        words</span>
+
+
+    </div>
+    <div class="col-6">
+      <div class="menu-title">
+        <span>{{ (location$ | async)}}</span>
+
+      </div>
+    </div>
+    <div class="col-3"></div>
+    <!-- <div class="col-3">
+                  <nb-icon #Menu style="font-size: 35px" [nbContextMenu]="items" size="large" icon="menu-outline"></nb-icon>
+                  <div class="row" style="justify-content: flex-end">
+                        <div class="col-11">
+                              <span><strong>{{userName}}</strong></span>
+                        </div>
+                        <div class="col-1">
+                              <nb-action class="col-1" (click)="logout()" icon="log-out"></nb-action>
+                        </div>
+                  </div>
+            </div> -->
+
+
+  </div>
+</div>

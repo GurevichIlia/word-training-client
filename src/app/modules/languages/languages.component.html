@@ -1,0 +1,15 @@
+<app-loader [show]="isLoading$ | async"></app-loader>
+
+  <app-select-language
+    [candidateToLearn]="languageIdCandidateToLearn"
+    [currentlanguageId]="(currentLearningLanguage$ | async)?._id"
+    [userLanguages]="userLanguages$ | async"
+    [allLanguages]="allLanguages$ | async"
+    [activeLanguagesTab]="activeTab$ | async"
+    (selectUserLanguageForLearning)="setCurrentLearningLanguage($event)"
+	>
+  </app-select-language>
+
+<!-- <ng-template #loader>
+      <app-loader [show]="true"></app-loader>
+</ng-template> -->

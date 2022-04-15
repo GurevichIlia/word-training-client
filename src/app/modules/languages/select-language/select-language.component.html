@@ -1,0 +1,88 @@
+<nb-card>
+  <nb-card-header class="justify-content-center">
+    <span class="sub-title">Select languages you want to learn</span>
+
+  </nb-card-header>
+  <nb-card-body class="text-center">
+
+
+    <mat-tab-group [selectedIndex]="activeLanguagesTab">
+      <!-- USER LANGUAGES -->
+      <mat-tab [disabled]="userLanguages?.length === 0">
+        <ng-container *ngIf="userLanguages; else loader">
+          <ng-template mat-tab-label>
+            <span [matBadge]="userLanguages?.length" matBadgeColor="primary">User languages</span>
+          </ng-template>
+          <nb-select class="col-12 mt-3 mb-3" placeholder="Select language" [formControl]="selectedLanguage">
+            <nb-option *ngFor="let language of userLanguages" [value]="language._id">
+              {{language.name}}
+              <nb-icon class="ml-auto" (click)="onDeleteUserLanguage(language._id)" icon="trash-2-outline">
+              </nb-icon>
+            </nb-option>
+          </nb-select>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-xl-5 submitBtnBox">
+                <a class="mb-2 custom-button dark"
+                  (click)="onSelectUserLanguageForLearning(selectedLanguage.value, userLanguages)">Submit</a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loader>
+          <nb-card>
+            <nb-card-body>
+              <nb-card [nbSpinner]="true" nbSpinnerStatus="basic">
+                <nb-card-body>
+                  Loading...
+                </nb-card-body>
+              </nb-card>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+
+      </mat-tab>
+
+      <!-- ALL LANGUAGES -->
+      <mat-tab>
+        <ng-container *ngIf="allLanguages; else loader1">
+
+        </ng-container>
+        <ng-template mat-tab-label>
+          <span [matBadge]="allLanguages?.length" matBadgeColor="primary"> All languages</span>
+        </ng-template>
+
+        <nb-list class="col-12 mt-3 mb-3 p-0">
+          <nb-list-item class="list-item" *ngFor="let language of allLanguages">
+            <span class="language-name"><img [src]="language.flag"> {{language.name}}</span>
+
+            <nb-checkbox class="ml-auto" *ngIf="language.addedToUser" [checked]="language.addedToUser"
+              [disabled]="language.addedToUser">
+            </nb-checkbox>
+            <div class="add-btn-box ">
+              <a *ngIf="!language.addedToUser" class="ml-auto custom-button dark small"
+                (click)="addLanguageToUserLanguages(language)">Add</a>
+            </div>
+
+          </nb-list-item>
+        </nb-list>
+
+        <ng-template #loader1>
+          <nb-card>
+            <nb-card-body>
+              <nb-card [nbSpinner]="true" nbSpinnerStatus="basic">
+                <nb-card-body>
+                  Loading...
+                </nb-card-body>
+              </nb-card>
+            </nb-card-body>
+          </nb-card>
+
+        </ng-template>
+      </mat-tab>
+
+
+    </mat-tab-group>
+  </nb-card-body>
+</nb-card>

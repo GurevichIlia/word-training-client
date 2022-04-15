@@ -1,0 +1,114 @@
+@import '../../../styles/variables.scss';
+
+.main-content {
+  height: 100%;
+  // margin-top: -15px;
+
+  nb-card-header {
+    z-index: 100;
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    box-shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
+  }
+}
+
+.wordDialogBox {
+  width: 340px;
+}
+
+.wordDialogBox .wordDialogFooter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.wordDialogFooter>button {
+  width: 140px;
+  margin: 5px;
+}
+
+.menu {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.matmenu {
+  padding: 10px;
+
+}
+
+.menuitem {
+  min-width: 150px;
+  background-color: white;
+  padding: 20px;
+}
+
+.menuitem:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.modal-header {
+  background-color: whitesmoke !important;
+  margin-bottom: 20px;
+
+  h4 {
+    color: $titleColor !important
+  }
+
+}
+
+.search {
+  width: 100%;
+}
+
+.add-word-btn {}
+
+i[class^="fas fa"] {
+  font-size: 30px;
+  margin-left: 10px;
+  color: #191a1aa6;
+  cursor: pointer;
+}
+
+.fas.fa {
+  font-size: 30px;
+  margin-left: 20px;
+  color: #191a1aa6;
+  cursor: pointer;
+}
+
+.assign-words-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: red;
+  height: 100px;
+  transition: all 0.4;
+}
+
+.translate-icon-block {
+  font-size: 30px;
+  padding-left: 10px;
+}
+
+.verb-toggle {
+  text-align: center;
+  width: 35px;
+  display: block;
+  margin-right: 10px;
+  font-weight: 700;
+}
+
+.conjugations-button {
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.fa-copy {
+  font-size: 16px;
+}

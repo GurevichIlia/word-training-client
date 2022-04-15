@@ -1,0 +1,31 @@
+@import './../../../../styles/variables.scss';
+
+.wordDialogBox {
+  width: 340px;
+}
+
+.wordDialogBox .wordDialogFooter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.wordDialogFooter>button {
+  width: 140px;
+  margin: 5px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px;
+  display: block;
+  padding-top: 20px;
+  color: $titleColor;
+}
+
+.item {
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  display: block;
+}

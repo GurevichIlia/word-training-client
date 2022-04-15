@@ -1,0 +1,67 @@
+<!-- <form [formGroup]="editForm"> -->
+<div class="box">
+
+  <div class="container ">
+
+    <div class="row">
+      <ng-container *ngIf="isShowMenu && _menuItems">
+        <div class="col-1">
+
+          <app-menu [menuItems]="_menuItems | wordMenu : word" (action)="dispatchAction($event, word)"></app-menu>
+
+        </div>
+      </ng-container>
+
+
+
+      <div class="col-8">
+        <span class="word "> {{word.word}}</span>
+        <br>
+        <span class="translation ">{{word.translation}}</span>
+      </div>
+
+      <div class="col-1 ml-auto pr-5" *ngIf="word['user'] && userId">
+
+        <span *ngIf="word['user'] == userId; else addToMyList" class="own-word">You <br> added</span>
+
+        <ng-template #addToMyList>
+          <a class="ml-auto custom-button dark small" (click)="dispatchAction(wordAction.ADD_TO_MY_WORDS ,word)">Add</a>
+        </ng-template>
+
+      </div>
+
+      <div class="col-2 ml-auto " *ngIf="!userId">
+
+        <ng-container *ngIf="!isShowDefaultOptions && !isShowMenu">
+          <nb-checkbox (checkedChange)="dispatchAction('assign', word._id)"></nb-checkbox>
+        </ng-container>
+
+        <ng-container *ngIf="isShowDefaultOptions">
+          <img class="mb-3 scaleIn " (tap)="dispatchAction(wordAction.TO_FAVORITE, word)" *ngIf="!word.isFavorite"
+            style="width: 30px; height: 30px"
+            src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels.png" alt="">
+          <img class="mb-3 scaleIn " (tap)="dispatchAction(wordAction.TO_FAVORITE, word)" *ngIf="word.isFavorite"
+            style="width: 30px; height: 30px"
+            src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels1.png" alt="">
+        </ng-container>
+
+      </div>
+
+      <ng-content></ng-content>
+    </div>
+
+
+    <ng-container *ngIf="isShowDefaultOptions">
+      <nb-progress-bar class="custom-progress-bar mt-3 " [value]="(word.levelKnowledge) | convertToPercent" size="tiny"
+        [displayValue]="true">
+      </nb-progress-bar>
+    </ng-container>
+
+
+    <div class="adding-date text-right" [style.color]="'#868383'">
+      <small class="">{{word.date ? 'Added '+(word.date | date : 'mediumDate') : ''}}</small>
+    </div>
+
+  </div>
+  <hr class="devider">
+</div>

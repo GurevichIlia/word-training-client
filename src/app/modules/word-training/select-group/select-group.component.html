@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+
+    <div class="col-12 text-center mb-5 " >
+      <div class="instruction-title">
+        <span> Select group you want to train</span>
+      </div>
+
+      <div class="verb-toggle-container">
+        <app-toggle
+          label="Train verbs"
+          [checked]="isShowOnlyVerbs$ | async"
+          (check)="onShowOnlyVerbs()">
+          Train verbs
+        </app-toggle>
+
+        <nb-radio-group class="d-flex"
+          *ngIf="isShowOnlyVerbs$ | async"
+          [formControl]="verbTimeControl"
+          >
+          <nb-radio value="present">Present</nb-radio>
+          <nb-radio value="past">Past</nb-radio>
+          <nb-radio value="future">Future</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div class="group-list-select">
+        <app-group-list
+          [groups]="groups$ | async"
+          [selectedGroup]="selectedTrainingGroup$ | async"
+          (selectGroup)="selectGroup($event)"
+        ></app-group-list>
+      </div>
+
+
+      <section class="statistics" *ngIf="isAllowedStart$ | async as isAllowedStart">
+        <app-group-statistics
+         [expanded]="isAllowedStart"
+         [statistics]="groupStatistics$ | async"
+         [styleConfig]="{background:'#fff0', border: 'none'}"
+         ></app-group-statistics>
+      </section>
+    </div>
+
+
+
+    <div class="empty-word-list-warning mt-5 mb-5" *ngIf="!(isAllowedStart$ | async)">
+      <span>Add at least 5 words to continue</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="text-center start-btn">
+
+  <a  (click)="startTrain()"class="custom-button dark col-10 mb-2 w-100" [ngClass]="{'disabled':!(isAllowedStart$ | async)}">Start</a>
+
+
+</div>

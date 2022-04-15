@@ -1,0 +1,23 @@
+@import '../../../styles/variables.scss';
+
+.title {
+  text-align: center;
+
+  span {
+    font-size: 18px;
+  }
+}
+
+
+
+.search {
+  margin-top: 20px;
+
+  background-color: whitesmoke;
+  z-index: 100;
+
+  position: sticky;
+  top: 0;
+  padding: 10px;
+
+}

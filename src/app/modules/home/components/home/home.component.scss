@@ -1,0 +1,30 @@
+.footer{
+  height: 50px;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  /* z-index: 100; */
+  width: 100%;
+  height: 50px;
+  // background: rgb(249, 141, 58);
+  background: linear-gradient(266deg, rgba(249, 141, 58, 1) 0%, rgba(133, 22, 138, 1) 90%);
+  box-shadow: 0px 0 10px rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+
+
+
+
+.loading-screen {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: whitesmoke;
+  position: absolute;
+
+  .image {
+    margin-top: 190px;
+  }
+}

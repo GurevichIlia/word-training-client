@@ -1,0 +1,41 @@
+@import '../../../../styles/variables.scss';
+
+.main-box {
+  height: 100%;
+  background-color: #323232;
+
+  .title {
+    font-size: 18px;
+    color: $titleColor;
+  }
+
+  .sub-title {
+    color: $titleColor;
+    cursor: pointer;
+    display: block;
+    margin-top: 15px;
+
+  }
+
+  .ios-title {
+    color: white;
+
+    nb-icon {
+      font-size: 20px;
+    }
+  }
+
+  .add-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -20px;
+  }
+
+  .click-title {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: -20px;
+  }
+}

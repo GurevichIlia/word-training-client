@@ -1,0 +1,32 @@
+<i [style.font-size]="fontSize" class="ml-1" [matMenuTriggerFor]="menu" class="fas fa-ellipsis-v"></i>
+<mat-menu #menu="matMenu" class="matmenu">
+
+  <ng-container *ngFor="let item of menuItems">
+
+    <button [disabled]="item.disabled" mat-menu-item (click)="onAction(item.action)" *ngIf="item.isShow !== false">
+      <i [class]="item.icon"></i>
+      <span class="ml-2">{{item.title}}</span>
+    </button>
+
+
+
+  </ng-container>
+
+
+
+
+  <!-- <div class="menuitem" *ngIf="!isBaseGroup()" (click)="openGroupModal('Edit group')">
+    <nb-icon icon="edit"></nb-icon>
+    <span class="ml-2">Edit group</span>
+  </div>
+  <div class="menuitem" *ngIf="!isBaseGroup()" (click)="showWordsForAssign()">
+    <nb-icon icon="plus-circle-outline"></nb-icon>
+    <span class="ml-2">Add
+      words</span>
+  </div>
+  <div class="menuitem" *ngIf="!isBaseGroup()" (click)="deleteWordGroup(getSelectedGroup()._id, groups)">
+    <nb-icon icon="trash-2-outline"></nb-icon>
+    <span class="ml-2">Delete
+      group</span>
+  </div> -->
+</mat-menu>

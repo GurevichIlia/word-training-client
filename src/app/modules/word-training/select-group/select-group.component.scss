@@ -1,0 +1,36 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+
+.cardHeaderFront {
+  background-color: #9c2e7b !important
+}
+
+.level {
+  text-align: center;
+}
+
+
+
+.instruction-title {
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  span {
+    font-size: 18px;
+    color: $titleColor;
+  }
+}
+
+.empty-word-list-warning {
+  font-size: 18px;
+  color: $titleColor;
+}
+
+.verb-toggle-container {
+  padding: 15px 15px;
+  text-align: left;
+}
+
+.group-list-select{
+  padding: 0 10px;
+}

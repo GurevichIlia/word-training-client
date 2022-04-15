@@ -1,0 +1,33 @@
+@import '../../../../styles/variables.scss';
+
+
+form {
+  margin-top: 40px;
+}
+
+.confirm-btn {
+  background-color: $purple !important;
+  border-color: $purple !important;
+
+}
+
+.error-message {
+  font-size: 12px;
+  color: rgba(212, 50, 50, 0.808)
+}
+
+.error-box {
+  background-color: #ff000026;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.error {
+  background-color: #ff000026 !important;
+}
+
+.reg-title {
+  font-size: 30px;
+
+}

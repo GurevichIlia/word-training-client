@@ -1,0 +1,123 @@
+<div class="reg-title text-center">Registration</div>
+
+
+
+<form [formGroup]="registrationForm" class="text-center">
+
+  <!-- <div class="error-box" *ngIf="registrationError$ | async as error">
+    <span class="error-message ">{{error}}</span>
+  </div> -->
+  <tui-notification *ngIf="registrationError$ | async as error" status="error" class="tui-space_top-4">
+    {{error}}
+  </tui-notification>
+
+  <div class="tui-row tui-row_sme">
+    <div class="tui-space_bottom-2 tui-col_12">
+        <tui-input
+            formControlName="nickName"
+            tuiTextfieldSize="m"
+            [tuiTextfieldLabelOutside]="false"
+        >
+          Name
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <tui-field-error formControlName="nickName"></tui-field-error>
+    </div>
+
+    <div class="tui-space_bottom-2 tui-col_12">
+        <tui-input
+            formControlName="email"
+            tuiTextfieldSize="m"
+            [tuiTextfieldLabelOutside]="false"
+        >
+          Email
+          <input tuiTextfield type="email" />
+        </tui-input>
+
+        <tui-field-error formControlName="email"></tui-field-error>
+    </div>
+
+    <div class="tui-space_bottom-2 tui-col_12">
+        <tui-input
+            autocomplete="off"
+            formControlName="password"
+            tuiTextfieldSize="m"
+            [tuiTextfieldLabelOutside]="false"
+        >
+          Password
+          <input tuiTextfield type="password" />
+        </tui-input>
+
+        <tui-field-error formControlName="password"></tui-field-error>
+    </div>
+
+    <div class="tui-space_bottom-2 tui-col_12">
+        <tui-input
+            autocomplete="off"
+            formControlName="confPassword"
+            tuiTextfieldSize="m"
+            [tuiTextfieldLabelOutside]="false"
+        >
+          Confirm password
+          <input tuiTextfield type="confPassword" />
+        </tui-input>
+
+        <tui-field-error formControlName="confPassword"></tui-field-error>
+    </div>
+  </div>
+
+<!--
+  <input formControlName="nickName" autocomplete="name" class="mb-2" type="text" nbInput fullWidth placeholder="Name" required>
+  <ng-container *ngIf="registrationForm.get('nickName').touched && registrationForm.get('nickName').hasError">
+    <span class="error-message" *ngIf="registrationForm.get('nickName').hasError('required') ">
+      Name should not be empty</span>
+  </ng-container>
+
+
+  <div class="mb-2">
+    <input formControlName="email" autocomplete="email" name="email" type="text" nbInput fullWidth placeholder="Email">
+    <ng-container *ngIf="registrationForm.get('email').touched && registrationForm.get('email').hasError">
+      <span class="error-message" *ngIf="registrationForm.get('email').hasError('required') ">
+        Email should not be empty</span>
+      <span class="error-message" *ngIf="registrationForm.get('email').hasError('email')">
+        Email format is not correct</span>
+    </ng-container>
+  </div>
+
+
+  <div class="mb-1">
+    <input autocomplete="off" formControlName="password" name="password" [ngClass]="{'error': isPasswordsDontMatch}" type="password" nbInput fullWidth
+      placeholder="Password">
+    <span class="error-message"
+      *ngIf="registrationForm.get('password').touched && registrationForm.get('password').hasError('required')">
+      Password should not be empty</span>
+    <span class="error-message" *ngIf="isPasswordsDontMatch">Passwords do not
+      match.</span>
+  </div>
+  <div class="mb-4">
+    <input autocomplete="off" formControlName="confPassword" name="password" [ngClass]="{'error': isPasswordsDontMatch}" type="password" nbInput fullWidth
+      placeholder="Confirm password">
+    <span class="error-message" *ngIf="isPasswordsDontMatch">Passwords do not
+      match.</span>
+  </div> -->
+
+  <div class="row justify-content-center mt-5">
+
+  <button
+    (click)="createUser()"
+    tuiButton
+    size="m"
+    type="button"
+    appearance="custom"
+    class="submit-btn"
+    [showLoader]="isSubmitting$ | async"
+    [disabled]="isSubmitting$ | async"
+  >Sign Up</button>
+
+    <!-- <a class="col-8 mb-2 custom-button dark" [ngClass]="{'disabled': (isSubmitting$ | async)}" (click)="createUser()" >Sign Up</a> -->
+    <div class="col-12 mt-2">
+      <span>Already have an account?<a style="cursor: pointer" [routerLink]="['/login']">Sign In</a></span>
+    </div>
+  </div>
+</form>

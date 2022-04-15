@@ -1,0 +1,34 @@
+@import '../../../../styles/variables.scss';
+
+.cardHeaderFront {
+  background-color: #d16455 !important
+}
+
+.level {
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+}
+
+
+.knowledge-level-panel {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.question-title {
+  span {
+    font-size: 16px;
+    color: $titleColor;
+  }
+
+  margin-bottom: 10px
+}
+
+
+
+.counter {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

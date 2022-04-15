@@ -1,0 +1,50 @@
+
+  <nb-card *ngIf="trainingResult$  | async as words">
+    <div class="container">
+
+      <nb-card-header class="row" *ngIf="trainedGroup$ | async as group">
+        <div class="col-4 ">
+          <div class="row ">
+            <a  (click)="goToVocabulary()"class="custom-button dark small col-12 mb-2 w-100 dark" >Vocabulary</a>
+            <a  (click)="trainAgain()"class="custom-button dark small col-12 mb-2 w-100 dark" >Train again</a>
+            <a  (click)="changeGroupForTraining()"class="custom-button dark col-12 small mb-2 w-100 light" >Change group</a>
+          </div>
+
+        </div>
+        <div class="col-8 pr-0 text-center">
+          <div class="counter" *ngIf="counterState$ | async as counterState">
+            <app-word-counter
+            [totalCardsLearned]="counterState.totalLearnedCards"
+            [wordsInGroup]="counterState.wordsInGroup.length"
+            [learnedCardsFromGroup]="counterState.uniqueWordsLearned"
+            ></app-word-counter>
+          </div>
+
+          <div class="group-name-box">
+            <div class="group-title">Group name</div>
+            <div class="group-name">{{group.name}}</div>
+          </div>
+
+
+        </div>
+
+
+      </nb-card-header>
+      <nb-card-body>
+        <section class="mb-4 statistics">
+          <app-group-statistics
+            [title]="'Train statistics'"
+            [expanded]="true"
+            [statistics]="statistics$ | async">
+          </app-group-statistics>
+        </section>
+
+        <app-word-list
+            [words]="words">
+        </app-word-list>
+
+      </nb-card-body>
+    </div>
+
+  </nb-card>
+

@@ -1,0 +1,24 @@
+<div class="container h-100" >
+      <div class="row align-items-center h-100">
+            <div class="col text-center">
+                  <a routerLink="/vocabulary" (click)="navigationService.navigateTo('/vocabulary')" routerLinkActive="isActive"><i class="fas fa-list-alt nav-icon"></i></a>
+
+            </div>
+                <div class="col text-center">
+                  <a routerLink="/word-training" routerLinkActive="isActive"><i class="fas fa-dumbbell nav-icon"></i></a>
+
+            </div>
+            <div class="col text-center">
+              <a routerLink="/translator"  routerLinkActive="isActive"><i class="fas fa-language"></i></a>
+            </div>
+            <div class="col text-center">
+                  <a routerLink="/general-words" routerLinkActive="isActive"><i class="fas fa-users nav-icon"></i></a>
+            </div>
+            <div class="col text-center">
+                  <a routerLink="/settings" routerLinkActive="isActive"><i class="fas fa-cog nav-icon"></i></a>
+
+
+            </div>
+      </div>
+</div>
+        <!-- <a [routerLink]="['/translator']">  <i class="fas fa-language" ></i></a> -->

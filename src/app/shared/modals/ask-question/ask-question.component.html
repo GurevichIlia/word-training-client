@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="isCloseModal$ | async"></ng-container>
+<app-modal-ui
+    [isLoading]="isLoading$ | async"
+    [title]="title"
+    [mode]="'delete'"
+    (save)="save()"
+    (cancel)="cancel()">
+    <mat-error *ngIf="errorMessage$ | async as errorMessage">{{errorMessage}}</mat-error>
+</app-modal-ui>
