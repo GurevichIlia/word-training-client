@@ -15,9 +15,8 @@
 
 
       <div class="col-8">
-        <span class="word "> {{word.word}}</span>
-        <br>
-        <span class="translation ">{{word.translation}}</span>
+        <div class="word" [ngStyle]="{'direction': (showRtl$ | async) ? 'rtl' : 'ltr'}"> {{word.word}}</div>
+        <div class="translation" >{{word.translation}}</div>
       </div>
 
       <div class="col-1 ml-auto pr-5" *ngIf="word['user'] && userId">

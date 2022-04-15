@@ -3,13 +3,12 @@
   width: 300px;
   text-align: center;
 
-  span {
-    // font-family: 'Muli', "Helvetica Neue", sans-serif !important;
+  div {
     font-family: 'Muli', "Helvetica Neue", sans-serif !important;
 
     font-weight: 600;
     overflow-wrap: break-word;
+    line-height: 1;
   }
-
 
 }

@@ -3,7 +3,7 @@ import { ReducerNode } from 'src/app/core/enums/store.enum';
 import { AuthStateInterface } from 'src/app/core/models/auth.model';
 import {
   getCurrentUserAction, getCurrentUserErrorAction, getCurrentUserSuccessAction, loginAction, loginErrorAction, loginSuccessAction,
-  logoutAction, registerAction, registerErrorAction, registerSuccessAction
+  logoutAction, registerAction, registerErrorAction, registerSuccessAction, resetAuthErrorAction
 } from 'src/app/modules/authorization/store/actions/auth.actions';
 
 
@@ -17,29 +17,6 @@ const authInitialState: AuthStateInterface = {
   backendErrors: null,
   isRegistrationSuccess: null
 }
-
-// export const authReducer = (state: AuthStateInterface = authInitialState, action: AuthActions) => {x
-//   switch (action.type) {
-//     case AuthActionsType.REGISTER:
-//       return {
-//         ...state,
-//         isSubmitting: true
-//       }
-//     case AuthActionsType.REGISTER_SUCCESS:
-//       return {
-//         ...state,
-//         currentUser: action.currentUser,
-//         isSubmitting: false
-//       };
-//     case AuthActionsType.REGISTER_ERROR:
-//       return {
-//         ...state,
-//         backendErrors: action.backendErrors,
-//         isSubmitting: false
-//       };
-//   }
-// }
-
 
 const reducer = createReducer(
   authInitialState,
@@ -117,6 +94,12 @@ const reducer = createReducer(
       isLoggedIn: false,
       isLoading: false,
       currentUser: null
+    })),
+  on(
+    resetAuthErrorAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      backendErrors: null,
     })),
 )
 export function authReducer(state: AuthStateInterface, action: Action) {

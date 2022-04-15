@@ -15,30 +15,11 @@ export enum AuthActionsType {
   GET_CURRENT_USER_SUCCESS = '[Current user] Get current user success',
   GET_CURRENT_USER_ERROR = '[Current user] Get current user error',
 
-  LOGOUT = '[AUTH] Logout'
-  // Create = '[AUTH] create Word',
-  // Delete = '[AUTH] delete Word',
-  // Favorite = '[AUTH] toggle add word to favorite',
-  // Edit = '[AUTH] edit Word',
-  // Save = '[AUTH] save Word',
-  // Success = '[AUTH] Word loading success',
-  // Error = '[AUTH] Word loading error'
+  LOGOUT = '[AUTH] Logout',
+  RESET_AUTH_ERROR = '[AUTH EFFECT] Reset auth error after login/registration navigation'
 }
 
-// export class RegisterAction implements Action {
-//   readonly type: AuthActionsType.REGISTER;
-//   constructor(public requestData: RegisterRequestInterface) { }
-// }
 
-// export class RegisterSuccessAction implements Action {
-//   readonly type: AuthActionsType.REGISTER_SUCCESS;
-//   constructor(public currentUser: User) { }
-// }
-
-// export class RegisterErrorAction implements Action {
-//   readonly type: AuthActionsType.REGISTER_ERROR;
-//   constructor(public backendErrors: BackendErrorInterface) { }
-// }
 
 
 export const registerAction = createAction(AuthActionsType.REGISTER, props<{ requestData: RegisterRequestInterface }>());
@@ -55,3 +36,7 @@ export const getCurrentUserSuccessAction = createAction(AuthActionsType.GET_CURR
 export const getCurrentUserErrorAction = createAction(AuthActionsType.GET_CURRENT_USER_ERROR)
 
 export const logoutAction = createAction(AuthActionsType.LOGOUT);
+
+export const resetAuthErrorAction = createAction(
+  AuthActionsType.RESET_AUTH_ERROR
+);

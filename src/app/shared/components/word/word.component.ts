@@ -8,6 +8,11 @@ import {
 import { Action, MenuItem, wordMenuItems } from 'src/app/core';
 import { Word } from 'src/app/shared/interfaces';
 import { GeneralWord } from 'src/app/modules/general-words/types/general-words.interfaces';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { filter, mapTo } from 'rxjs/operators';
+import { Languages } from 'src/app/core/enums/languages.enum';
+import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
 
 
 @Component({
@@ -41,6 +46,13 @@ export class WordComponent {
 
     }
   };
+
+  public readonly showRtl$: Observable<boolean> = this.store.select(currentLanguageSelector).pipe(
+    filter(language => language?.name === Languages.Hebrew),
+    mapTo(true)
+  )
+
+  constructor(private store: Store) { }
 
   dispatchAction(action: string, payload?: any) {
     this.action.emit({ action, payload });

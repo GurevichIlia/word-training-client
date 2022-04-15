@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/modules/authorization/services/auth.service';
-import { NotificationsService } from 'src/app/shared/services/notifications.service';
-import { registerAction } from '../store/actions/auth.actions';
+import { CustomValidators } from 'src/app/shared/custom-validators/custom-validators';
+import { registerAction, resetAuthErrorAction } from '../store/actions/auth.actions';
 import { backendErrorsSelector, isSubmittingSelector } from '../store/selectors/auth.selectors';
 import { AppStateInterface } from './../../../store/reducers';
-
 
 @Component({
   selector: 'app-registration',
@@ -15,25 +13,21 @@ import { AppStateInterface } from './../../../store/reducers';
   styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegistrationComponent {
-  isPasswordsDontMatch = false;
-
+export class RegistrationComponent implements OnDestroy {
   public readonly registrationForm: FormGroup = this.fb.group({
     nickName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confPassword: ['', Validators.required]
-  });
+  }, { validators: CustomValidators.matchPassword('password', 'confPassword') });
 
   public readonly isSubmitting$: Observable<boolean> = this.store$.pipe(select(isSubmittingSelector));
   public readonly registrationError$: Observable<string> = this.store$.pipe(select(backendErrorsSelector))
 
   constructor(
-    private authService: AuthService,
     private fb: FormBuilder,
     private store$: Store<AppStateInterface>
   ) { }
-
 
   get email() {
     return this.registrationForm.get('email');
@@ -47,10 +41,9 @@ export class RegistrationComponent {
     return this.registrationForm.get('confPassword');
   }
 
-  public createUser() {
-    this.isPasswordsDontMatch = !this.authService.isPasswordsMatch(this.password.value, this.confirmPassword.value)
+  public createUser(): void {
 
-    if (this.registrationForm.invalid || this.isPasswordsDontMatch) {
+    if (this.registrationForm.invalid) {
       this.registrationForm.markAllAsTouched();
       return;
     }
@@ -58,4 +51,7 @@ export class RegistrationComponent {
     this.store$.dispatch(registerAction({ requestData: this.registrationForm.value }));
   }
 
+  ngOnDestroy(): void {
+    this.store$.dispatch(resetAuthErrorAction())
+  }
 }

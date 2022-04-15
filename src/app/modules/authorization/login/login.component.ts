@@ -1,5 +1,5 @@
 import { animate, keyframes, transition, trigger } from '@angular/animations';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { map, shareReplay, tap } from 'rxjs/operators';
 import { AppRoutes } from 'src/app/core/routes/routes';
 import { AuthService } from 'src/app/modules/authorization/services/auth.service';
 import * as kf from '../../../shared/keyframes';
-import { loginAction } from '../store/actions/auth.actions';
+import { loginAction, resetAuthErrorAction } from '../store/actions/auth.actions';
 import { backendErrorsSelector, isRegistrationSuccessSelector, isSubmittingSelector } from '../store/selectors/auth.selectors';
 import { LoginRequestInterface } from './../../../core/models/auth.model';
 import { NavigationService } from './../../../core/services/navigation.service';
@@ -28,7 +28,7 @@ import { AppStateInterface } from './../../../store/reducers';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   public readonly TEST_EMAIL = 'test-acc@test.com';
   public readonly TEST_PASSWORD = 'testacc';
 
@@ -84,4 +84,7 @@ export class LoginComponent {
 
   }
 
+  ngOnDestroy(): void {
+    this.store$.dispatch(resetAuthErrorAction())
+  }
 }

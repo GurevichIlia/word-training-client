@@ -1,5 +1,3 @@
-import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
-import { TuiRootModule, TuiDialogModule, TuiNotificationsModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
@@ -10,6 +8,8 @@ import { NbDialogModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@n
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TuiDialogModule, TuiNotificationsModule, TuiRootModule, TUI_SANITIZER } from "@taiga-ui/core";
+import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import * as Hammer from 'hammerjs';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
