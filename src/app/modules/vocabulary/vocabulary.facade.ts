@@ -23,7 +23,7 @@ import {
 } from 'src/app/store/actions/vocabulary.actions';
 import { AppStateInterface } from 'src/app/store/reducers';
 import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
-import { allWordsSelector, selectedGroupSelector, vocabularyLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
+import { allWordsSelector, selectedGroupSelector, selectWordsForVocabulary, vocabularyLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
 import { GeneralWord } from '../general-words/types/general-words.interfaces';
 import { WordsService } from './../../core/services/words.service';
 import { fetchGroupsAction } from './../../store/actions/vocabulary.actions';
@@ -36,20 +36,24 @@ import { groupsSelector, isShowOnlyVerbsInVocabularySelector } from './../../sto
 @Injectable({ providedIn: 'root' })
 export class VocabularyFacade {
   isShowVerbsToggle$: Observable<boolean> = this.store$.pipe(select(currentLanguageSelector), map(lang => lang.name === 'Hebrew'))
-  words$ = this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector),
-    switchMap(isVerbs => {
-      return this.wordsService.verbsFilter(
-        this.store$.pipe(select(allWordsSelector)),
-        isVerbs
-      )
-    }),
-    switchMap(words =>
-      this.selectedGroup$.pipe(
-        map(selectedGroup =>
-          this.wordsService.filterWordsByGroup(selectedGroup, words))
-      )
-    )
-  )
+
+  // words$ = this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector),
+  //   switchMap(isVerbs => {
+  //     return this.wordsService.verbsFilter(
+  //       this.store$.pipe(select(allWordsSelector)),
+  //       isVerbs
+  //     )
+  //   }),
+  //   switchMap(words =>
+  //     this.selectedGroup$.pipe(
+  //       map(selectedGroup =>
+  //         this.wordsService.filterWordsByGroup(selectedGroup, words))
+  //     )
+  //   )
+  // )
+
+  public readonly words$ = this.store$.select(selectWordsForVocabulary)
+
   constructor(
     private dialogService: NbDialogService,
     private installApp: InstallAppService,
@@ -93,26 +97,22 @@ export class VocabularyFacade {
   //   }))
   // }
 
-  get selectedGroup$(): Observable<WordGroup> {
-    return this.store$.pipe(select(selectedGroupSelector))
-  }
+  public readonly selectedGroup$: Observable<WordGroup> = this.store$.pipe(select(selectedGroupSelector))
 
-  get vocabularyLoader$(): Observable<boolean> {
-    return this.store$.pipe(select(vocabularyLoaderSelector))
+  public readonly vocabularyLoader$: Observable<boolean> = this.store$.pipe(select(vocabularyLoaderSelector))
 
-  }
+  public readonly wordMenuItems$: Observable<MenuItem<WordAction>[]> = this.selectedGroup$.pipe(
+    filter(group => group !== null),
+    map(group => {
+      if (group._id === DefaultGroupId.ALL_WORDS || group._id === DefaultGroupId.FAVORITES) {
+        return wordMenuItems.filter(item => item.action !== WordAction.DELETE_FROM_GROUP)
+      }
 
-  get wordMenuItems$(): Observable<MenuItem<WordAction>[]> {
-    return this.selectedGroup$.pipe(
-      filter(group => group !== null),
-      map(group => {
-        if (group._id === DefaultGroupId.ALL_WORDS || group._id === DefaultGroupId.FAVORITES) {
-          return wordMenuItems.filter(item => item.action !== WordAction.DELETE_FROM_GROUP)
-        }
+      return wordMenuItems
+    }))
 
-        return wordMenuItems
-      }))
-  }
+  public readonly isShowVerbs$: Observable<boolean> = this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector))
+
 
   get supportedLanguagesForTranslation$(): Observable<SupportedLanguage[]> {
     return this.translation.supportedLanguages$
@@ -128,13 +128,13 @@ export class VocabularyFacade {
   }
 
 
-  getUserWordsFiltredByGroup(
-    searchValue: string,
-  ): Observable<Word[]> {
+  // getUserWordsFiltredByGroup(
+  //   searchValue: string,
+  // ): Observable<Word[]> {
 
-    return this.words$.pipe(map(words => this.wordsService.filterBySearcValue(searchValue, words)))
+  //   return this.words$.pipe(map(words => this.wordsService.filterBySearcValue(searchValue, words)))
 
-  }
+  // }
 
   filterBySearcValue(searchValue: string, words: (Word | GeneralWord)[]): Word[] {
     return this.wordsService.filterBySearcValue(searchValue, words);
@@ -220,10 +220,6 @@ export class VocabularyFacade {
       .pipe(
         map(res => res.text),
       )
-  }
-
-  get isShowVerbs$(): Observable<boolean> {
-    return this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector))
   }
 
   showVerbsToggle(): void {

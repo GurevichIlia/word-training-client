@@ -1,6 +1,5 @@
 import { MenuItem } from 'src/app/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Action } from 'src/app/core/models/general.model';
 
 @Component({
   selector: 'app-menu',
@@ -10,8 +9,13 @@ import { Action } from 'src/app/core/models/general.model';
 })
 export class MenuComponent implements OnInit {
   @Input() menuItems: MenuItem[];
+
   @Input() fontSize: string = '18px';
+
+  @Input() open: boolean = false
+
   @Output() action = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {

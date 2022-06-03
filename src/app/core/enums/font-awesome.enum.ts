@@ -7,3 +7,5 @@ export enum FontAwesomeIcons {
   Share = 'fas fa-share-square',
   Translate = 'fas fa-language'
 }
+
+

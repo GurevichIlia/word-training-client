@@ -142,7 +142,6 @@ export class TranslationService {
   }
 
   getTranslation(config: TranslationConfig): Observable<TranslationResponseInterface> {
-    debugger
     const { text, langFrom, langTo } = config
     const headers = new HttpHeaders()
       .append('content-type', 'application/json')

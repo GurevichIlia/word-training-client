@@ -1,11 +1,13 @@
+import { KnowledgeLevel } from './../../../shared/components/group-statistics/group-statistics.component';
 import { animate, keyframes, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
 import { Word } from 'src/app/shared/interfaces';
 import * as kf from '../../../shared/keyframes';
 import { VerbTime } from '../../conjugations/models/conjugations.interface';
 import { WordTrainingFacade } from './../word-training.facade';
+import { KnowledgeLevelEnum } from 'src/app/core/enums/knowledge-level.enum';
 
 export interface CounterState {
   totalLearnedCards: number,
@@ -36,8 +38,15 @@ export class TrainComponent implements OnInit, OnDestroy {
   isShowPrevioudWordButton$: Observable<boolean>
   isVerbsTraining$: Observable<boolean>
   hebrewVerbTime$: Observable<VerbTime>
-  constructor(
 
+  public readonly buttons$: Observable<{ knowledgeLevel: KnowledgeLevelEnum }[]> = of([
+    { knowledgeLevel: KnowledgeLevelEnum.Bad },
+    { knowledgeLevel: KnowledgeLevelEnum.Better },
+    { knowledgeLevel: KnowledgeLevelEnum.Medium },
+    { knowledgeLevel: KnowledgeLevelEnum.Good },
+    { knowledgeLevel: KnowledgeLevelEnum.Excellent },
+  ])
+  constructor(
     private wordTrainingFacade: WordTrainingFacade
   ) { }
 

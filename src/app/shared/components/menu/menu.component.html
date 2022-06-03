@@ -1,32 +1,28 @@
-<i [style.font-size]="fontSize" class="ml-1" [matMenuTriggerFor]="menu" class="fas fa-ellipsis-v"></i>
-<mat-menu #menu="matMenu" class="matmenu">
 
-  <ng-container *ngFor="let item of menuItems">
+<tui-hosted-dropdown
+    tuiDropdownAlign="left"
+    [content]="dropdown"
+    [(open)]="open"
+    >
+    <ng-content></ng-content>
+</tui-hosted-dropdown>
 
-    <button [disabled]="item.disabled" mat-menu-item (click)="onAction(item.action)" *ngIf="item.isShow !== false">
+
+<ng-template #dropdown>
+  <tui-data-list>
+      <button
+          *ngFor="let item of menuItems"
+          tuiOption
+          class="justify-content-start"
+          (click)="onAction(item.action)"
+      >
       <i [class]="item.icon"></i>
-      <span class="ml-2">{{item.title}}</span>
-    </button>
+
+
+        <div class="ml-2">{{item.title}}</div>
+      </button>
+  </tui-data-list>
+</ng-template>
 
 
 
-  </ng-container>
-
-
-
-
-  <!-- <div class="menuitem" *ngIf="!isBaseGroup()" (click)="openGroupModal('Edit group')">
-    <nb-icon icon="edit"></nb-icon>
-    <span class="ml-2">Edit group</span>
-  </div>
-  <div class="menuitem" *ngIf="!isBaseGroup()" (click)="showWordsForAssign()">
-    <nb-icon icon="plus-circle-outline"></nb-icon>
-    <span class="ml-2">Add
-      words</span>
-  </div>
-  <div class="menuitem" *ngIf="!isBaseGroup()" (click)="deleteWordGroup(getSelectedGroup()._id, groups)">
-    <nb-icon icon="trash-2-outline"></nb-icon>
-    <span class="ml-2">Delete
-      group</span>
-  </div> -->
-</mat-menu>

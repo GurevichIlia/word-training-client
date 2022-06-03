@@ -6,22 +6,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NbDialogModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TuiDialogModule, TuiNotificationsModule, TuiRootModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import * as Hammer from 'hammerjs';
+import { filter, mapTo } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Languages } from './core/enums/languages.enum';
 import { InstallSuggestionComponent } from './core/install-app/install-suggestion/install-suggestion.component';
 import { ServerErrorInterceptor } from './core/interceptors/server-error.interceptor';
 import { TokenInterceptorService } from './core/interceptors/token.interceptor';
 import { LEARNING_LANGUAGE_PROVIDER } from './core/tokens/learning-language.token';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
 import { LoaderModule } from './shared/components/loader/loader.module';
+import { SHOW_RTL_TOKEN } from './shared/directives/rtl-directive/show-rtl.token';
 import { PersistanceService } from './shared/services/persistance.service';
 import { clearState, getGeneralStateEffects, reducers } from './store/reducers';
+import { currentLanguageSelector } from './store/selectors/languages.selectors';
 
 
 @Injectable()
@@ -67,10 +71,10 @@ export class MyHammerConfig extends HammerGestureConfig {
     }),
 
     LoaderModule,
-      TuiRootModule,
-      TuiDialogModule,
-      TuiNotificationsModule
-],
+    TuiRootModule,
+    TuiDialogModule,
+    TuiNotificationsModule
+  ],
   exports: [
     BrowserAnimationsModule,
 
@@ -82,8 +86,16 @@ export class MyHammerConfig extends HammerGestureConfig {
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
     PersistanceService,
     LEARNING_LANGUAGE_PROVIDER,
-      {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}
-],
+    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+    {
+      provide: SHOW_RTL_TOKEN,
+      useFactory: (store: Store) => store.select(currentLanguageSelector).pipe(
+        filter(language => language?.name === Languages.Hebrew),
+        mapTo(true)
+      ),
+      deps: [Store]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

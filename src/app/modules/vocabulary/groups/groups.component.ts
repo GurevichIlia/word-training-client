@@ -28,10 +28,11 @@ import { GroupsService } from './services/groups.service';
 export class GroupsComponent implements OnInit, OnDestroy {
   @ViewChild('groupModal') groupModal: TemplateRef<any>;
   @ViewChild('deleteGroupModal') deleteGroupModal: TemplateRef<any>;
-  groups$: Observable<WordGroup[]>;
+  groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(tap(e => console.log('GROUPS', e)));
   selectedGroup: WordGroup;
+  public readonly selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$;
   groupName = new FormControl('', Validators.required);
-  modalLoader$: Observable<boolean>;
+  modalLoader$: Observable<boolean> = this.store$.pipe(select(modalLoaderSelector));;
   subscription$ = new Subject();
   modalRef: MatDialogRef<TemplateRef<any>>;
   modalTitle = '';
@@ -58,14 +59,12 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   initializeValues() {
-    this.groups$ =  this.vocabularyFacade.groups$
 
     this.menuItems$ = this.vocabularyFacade.selectedGroup$.pipe(
       tap(selectedGroup => this.selectedGroup = selectedGroup),
       map(selectedGroup => this.groupsService.createMenu(selectedGroup, groupMenuItems as GroupMenuItem[])),
     )
 
-    this.modalLoader$ = this.store$.pipe(select(modalLoaderSelector));
   }
 
   initializeListeners() {
@@ -100,15 +99,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   deleteGroup() {
     this.store$.dispatch(deleteUserGroupAction())
-    // this.groupsService.deleteWordGroup(group)
-    //   .pipe(
-    //     takeUntil(this.subscription$))
-    //   .subscribe(res => {
-    //     this.vocabularyService.updateWordsAndGroups();
-    //     this.store$.dispatch(setSelectedGroupAction({ group: new WordGroup(ALL_WORDS_GROUP) }))
-    //     // this.getGroups();
-    //     console.log('RES AFTER DELETE GROUP', res);
-    //   })
   }
 
   openGroupModal(title: 'New group' | 'Edit group') {
@@ -122,11 +112,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal() {
-
     this.openModal('Would you like to delete this group?', this.deleteGroupModal);
-
-
-    // this.openModal(`Would you like to remove this word?`, this.deleteWordTemplate)
   }
 
   openModal(title: string, template: TemplateRef<any> | Type<any>, item?: string) {
