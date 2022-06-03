@@ -27,9 +27,9 @@ const routes: Routes = [
       {
         path: 'conjugations', loadChildren: () => import('../conjugations/conjugations.module').then(m => m.ConjugationsModule),
       },
-      {
-        path: 'translator', loadChildren: () => import('../translator/translator.module').then(m => m.TranslatorModule),
-      },
+      // {
+      //   path: 'translator', loadChildren: () => import('../translator/translator.module').then(m => m.TranslatorModule),
+      // },
       { path: '**', redirectTo: '/vocabulary' },
 
     ],

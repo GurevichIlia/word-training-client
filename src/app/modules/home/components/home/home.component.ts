@@ -10,19 +10,14 @@ import { globalLoaderSelector } from 'src/app/store/selectors/general.selector';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  globalLoader$: Observable<boolean>
+  globalLoader$: Observable<boolean> = this.store$.pipe(select(globalLoaderSelector))
 
-  // currentLearningLanguage
   constructor(
-
     private store$: Store<AppStateInterface>
-
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
-    this.globalLoader$ = this.store$.pipe(select(globalLoaderSelector))
     this.store$.dispatch(getLearningLanguageAction())
-
   }
+
 }

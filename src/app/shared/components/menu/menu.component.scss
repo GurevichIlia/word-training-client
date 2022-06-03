@@ -1,19 +1,9 @@
-.matmenu {
-  padding: 10px;
+tui-svg {
+  &.icon-menu {
+    font-size: 22px;
+  }
 
-}
-
-.menuitem {
-  min-width: 150px;
-  background-color: white;
-  padding: 20px;
-}
-
-.menuitem:hover {
-  background-color: whitesmoke;
-  cursor: pointer;
-}
-
-button {
-  outline: none
+  &.icon {
+    font-size: 20px;
+  }
 }

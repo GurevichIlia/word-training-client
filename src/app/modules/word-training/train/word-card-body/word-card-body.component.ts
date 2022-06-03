@@ -18,10 +18,10 @@ export class WordCardBodyComponent {
   @Input() type: 'word' | 'translation'
   @Output() favoriteToggle = new EventEmitter();
 
-  public readonly showRtl$: Observable<boolean> = this.store.select(currentLanguageSelector).pipe(
-    filter(language => language?.name === Languages.Hebrew && this.type === 'word'),
-    mapTo(true)
-  )
+  // public readonly showRtl$: Observable<boolean> = this.store.select(currentLanguageSelector).pipe(
+  //   filter(language => language?.name === Languages.Hebrew && this.type === 'word'),
+  //   mapTo(true)
+  // )
 
   constructor(private store: Store) { }
   favorite() {

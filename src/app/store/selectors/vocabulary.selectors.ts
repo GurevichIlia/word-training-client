@@ -1,4 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { DefaultGroupId } from 'src/app/core';
+import { filterWordsByGroup } from 'src/app/core/utils/filter-words-by-group';
 import { getWordQuantity } from 'src/app/core/utils/get-word-quantity';
 import { AppStateInterface } from 'src/app/store/reducers';
 import { VocabularyStateInterface, VOCABULARY_REDUCER_NODE } from '../reducers/vocabulary.reducers';
@@ -67,17 +69,31 @@ export const isBottomSheetLoadingSelector = createSelector(
 
 export const groupsSelector = createSelector(
   featureSelector,
-  (state, isVerbs: boolean) => getWordQuantity(state.userGroups, state.userWords, isVerbs ?? state.isVerbs),
-
+  (state, isVerbs: boolean) => getWordQuantity(state.userGroups, state.userWords, isVerbs ?? state.isVerbs)
 )
 
 export const selectedGroupSelector = createSelector(
   featureSelector,
   state => state.selectedGroup
+
 )
 
 export const isShowOnlyVerbsInVocabularySelector = createSelector(
   featureSelector,
   state => state.isVerbs
 )
+
+export const selectWordsForVocabulary = createSelector(
+  allWordsSelector,
+  isShowOnlyVerbsInVocabularySelector,
+  selectedGroupSelector,
+  (allWords, onlyVerbs, selectedGroup) => {
+
+    const words = allWords.filter(word => onlyVerbs ? word.isVerb : word)
+
+    return filterWordsByGroup(selectedGroup, words)
+
+  }
+)
+
 

@@ -1,8 +1,7 @@
 
 <nb-card class="main-content">
 
-
-  <nb-card-header>
+  <nb-card-header *ngIf="userWordsFilteredByGroupAndSearchValue$ | async as userWordsFiltredByGroupAndSearchValue">
     <div class="d-flex align-items-center" *ngIf=" !(vocabularyLoader$ | async) && userWordsFiltredByGroupAndSearchValue">
       <span [hidden]="userWordsFiltredByGroupAndSearchValue.length === 0 && !searchValueControl.value" class="search">
         <app-search [filterValue]="searchValueControl" (addWord)="getActionFromChildren($event)">
@@ -20,28 +19,21 @@
     </div>
   </ng-container>
 
-  <app-groups>
-    <!-- <ng-container word-type-toggle *ngIf="isShowVerbsToggle$ | async">
-      <div>
-        <button nbButton (click)="onShowOnlyVerbs()" size="tiny">{{(isShowOnlyVerbs$ | async) ? 'All' : 'Verbs'}}</button>
-        <button nbButton (click)="onShowOnlyVerbs()" size="tiny" *ngIf="isShowVerbsToggle$ | async"><a [routerLink]="['/conjugations']">Conjugations</a></button>
-      </div>
-    </ng-container> -->
-  </app-groups>
+
+      <app-group-list
+        [groups]="groups$ | async"
+        [selectedGroup]="selectedGroup$ | async"
+        (selectGroup)="onSelectGroup($event)"
+      >
+      </app-group-list>
 
 
     <ng-container *ngIf="(selectedGroup$ | async ) as selectedGroup">
       <div class="d-flex">
         <a *ngIf="selectedGroup._id !== '2'" (click)="openModal('New word', modalUiWrapper)"
           class="custom-button light add-word-btn mb-3 w-100">Add word</a>
-        <!-- <a [routerLink]="['/conjugations']" *ngIf="isShowVerbsToggle$ | async"> <i class="fas fa-list-alt"></i></a> -->
-        <!-- <a [routerLink]="['/translator']">  <i class="fas fa-language" ></i></a> -->
-
         <i *ngIf="selectedGroup._id !== '2'" class="fas fa-file-csv" (click)="showUploader()"></i>
-
       </div>
-      <!-- <button *ngIf="selectedGroup !== '1' && selectedGroup !== '2'" (click)="showWordsForAssign()"
-        class="purpleButton mb-3 w-100" type="submit" nbButton size="small">Add words</button> -->
     </ng-container>
 
 
@@ -72,13 +64,13 @@
       [filterValue]="searchValueControl.valueChanges"
       [menuItems]="wordMenuItems$ | async"
       [selectedGroup]="selectedGroup$ | async"
-      [words]="userWordsFiltredByGroupAndSearchValue">
+      [words]="userWordsFilteredByGroupAndSearchValue$ | async">
     </app-word-list>
 
 
     <app-status-message
       (openCsvUploader)="showUploader()"
-      [words]="userWordsFiltredByGroupAndSearchValue"
+      [words]="userWordsFilteredByGroupAndSearchValue$ | async"
       [searchValue]="searchValueControl.value"
       [selectedGroup]="selectedGroup$ | async"
       [isLoading]="vocabularyLoader$ | async">
@@ -98,7 +90,7 @@
   <form [formGroup]="wordForm">
     <div class="d-flex">
       <nb-form-field class="w-100 mb-2">
-        <input formControlName="word" [ngClass]="{'rtlInput': (showRtl$ | async)}" type="text" fieldSize="small" nbInput placeholder="Word">
+        <input formControlName="word" rtlDirection type="text" fieldSize="small" nbInput placeholder="Word">
         <i *ngIf="wordControl.value" (click)="copyToClipboard(wordControl.value)" nbSuffix class="far fa-copy "></i>
       </nb-form-field>
       <!-- <input formControlName="word" class="mb-1 w-100" type="text" fieldSize="small" nbInput placeholder="Word"> -->

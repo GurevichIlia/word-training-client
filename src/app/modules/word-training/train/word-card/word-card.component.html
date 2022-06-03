@@ -1,19 +1,11 @@
 <nb-flip-card [showToggleButton]="false" [flipped]="isFlipped">
   <nb-card-front class="front-card">
     <nb-card #frontCard class="word-card">
-      <nb-card-header [ngClass]="{
-      'bad': word.levelKnowledge == 1,
-      'better': word.levelKnowledge == 2,
-      'medium': word.levelKnowledge == 3,
-      'good': word.levelKnowledge == 4,
-      'excellent': word.levelKnowledge == 5,
-      'basic': word.levelKnowledge == 0
-}">
+      <nb-card-header [knowledgeLevel]="levelKnowledge">
         <span class="card-title">Word</span>
       </nb-card-header>
       <nb-card-body [hidden]="isFlipped === true">
 
-        <!-- <button (click)="addToFavorites(word)">fav</button> -->
         <ng-content select="[topSide]"></ng-content>
 
       </nb-card-body>
@@ -26,27 +18,10 @@
   <nb-card-back>
     <nb-card #backCard status="danger" class="word-card">
 
-      <nb-card-header [ngClass]="{
-      'bad': word.levelKnowledge == 1,
-      'better': word.levelKnowledge == 2,
-      'medium': word.levelKnowledge == 3,
-      'good': word.levelKnowledge == 4,
-      'excellent': word.levelKnowledge == 5,
-      'basic': word.levelKnowledge == 0
-      }">
+      <nb-card-header [knowledgeLevel]="levelKnowledge">
         <span class="card-title">Translation </span>
       </nb-card-header>
       <nb-card-body style="height: 100%" [hidden]="isFlipped === false">
-        <!-- <div class="word m-auto">
-          <span [ngStyle]="{'font-size': word?.translation.length > 11 ? '30px' : '35px'}">{{word?.translation}}</span>
-        </div>
-
-        <div class="w-100">
-          <img class="scaleIn" (click)="favorite(word)" *ngIf="!word?.isFavorite" style="width: 30px; height: 30px"
-            src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels.png" alt="">
-          <img class="scaleIn" (click)="favorite(word)" *ngIf="word?.isFavorite" style="width: 30px; height: 30px"
-            src="../../assets/Photos/aa21eb60437133bf4f4be189636a187a-star-favorite-outline-icon-by-vexels1.png" alt="">
-        </div> -->
 
         <ng-content select="[downSide]"></ng-content>
 

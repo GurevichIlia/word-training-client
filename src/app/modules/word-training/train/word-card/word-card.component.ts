@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { KnowledgeLevelEnum } from 'src/app/core/enums/knowledge-level.enum';
 import { Word, Verb } from 'src/app/shared/interfaces';
 
 @Component({
@@ -23,5 +24,9 @@ export class WordCardComponent {
   get isVerb(): boolean {
     const isVerb = 'conjugations' in this.word
     return isVerb
+  }
+
+  get levelKnowledge(): KnowledgeLevelEnum {
+    return this.word.levelKnowledge;
   }
 }

@@ -1,3 +1,4 @@
+import { TuiButtonModule } from '@taiga-ui/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StopWordsTrainGuard } from './../../shared/guards/stop-words-train.guard';
 import { NbCardModule, NbButtonModule, NbToggleModule, NbRadioModule } from '@nebular/theme';
@@ -64,7 +65,9 @@ const wordtrainingRoutes: Routes = [
     NbButtonModule,
     ToggleModule,
     VerbTableRowModule,
-    NbRadioModule
+    NbRadioModule,
+
+    TuiButtonModule
 
   ],
   providers: [

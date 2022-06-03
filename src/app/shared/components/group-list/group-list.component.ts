@@ -1,29 +1,37 @@
-import { WordGroup } from 'src/app/shared/interfaces';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TuiStringHandler } from '@taiga-ui/cdk/types/handler';
+import { tuiItemsHandlersProvider } from '@taiga-ui/kit';
+import { tap } from 'rxjs/operators';
+import { WordGroup } from 'src/app/shared/interfaces';
+
+const STRINGIFY_GROUP: TuiStringHandler<WordGroup> = (group: WordGroup) =>
+  `${group.name ?? ''} - ${group.wordQuantity ?? ''}`;
 
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss'],
+  providers: [tuiItemsHandlersProvider({ stringify: STRINGIFY_GROUP })],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupListComponent {
-  groupControl = new FormControl('');
-  @Input() groups: WordGroup[];
-  @Input() size: 'tiny' | 'small' | 'medium'| 'large' | 'giant' = 'small';
-  @Input() set selectedGroup(group: WordGroup) {
+  public readonly groupControl = new FormControl('');
+
+  @Input()
+  groups: WordGroup[];
+
+  @Input()
+  size: 'tiny' | 'small' | 'medium' | 'large' | 'giant' = 'small';
+
+  @Input()
+  set selectedGroup(group: WordGroup) {
     if (group) {
-      this.groupControl.patchValue(group._id);
+      this.groupControl.patchValue(group, { emitEvent: false });
     }
   }
 
-  @Output() selectGroup = new EventEmitter<WordGroup>();
-
-  onSelectGroup(group: WordGroup) {
-
-    this.selectGroup.emit(group);
-  }
-
+  @Output()
+  selectGroup = this.groupControl.valueChanges
 
 }

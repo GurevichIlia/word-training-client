@@ -1,4 +1,3 @@
-import { NbDialogRef } from '@nebular/theme';
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 export type ModalUiMode = 'update' | 'create' | 'delete'

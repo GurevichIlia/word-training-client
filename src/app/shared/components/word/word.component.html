@@ -1,21 +1,22 @@
-<!-- <form [formGroup]="editForm"> -->
 <div class="box">
 
   <div class="container ">
 
     <div class="row">
       <ng-container *ngIf="isShowMenu && _menuItems">
-        <div class="col-1">
+        <div class="col-1 p-0">
 
-          <app-menu [menuItems]="_menuItems | wordMenu : word" (action)="dispatchAction($event, word)"></app-menu>
+          <app-menu [menuItems]="_menuItems | wordMenu : word" (action)="dispatchAction($event, word)">
+            <tui-svg src="tuiIconMoreVertLarge" class="icon-menu"></tui-svg>
+          </app-menu>
 
         </div>
       </ng-container>
 
 
 
-      <div class="col-8">
-        <div class="word" [ngStyle]="{'direction': (showRtl$ | async) ? 'rtl' : 'ltr'}"> {{word.word}}</div>
+      <div class="col-8 p-0">
+        <div class="word" rtlDirection> {{word.word}}</div>
         <div class="translation" >{{word.translation}}</div>
       </div>
 
@@ -51,9 +52,12 @@
 
 
     <ng-container *ngIf="isShowDefaultOptions">
-      <nb-progress-bar class="custom-progress-bar mt-3 " [value]="(word.levelKnowledge) | convertToPercent" size="tiny"
-        [displayValue]="true">
-      </nb-progress-bar>
+      <tui-progress-segmented
+        [colors]="wordCardColors$ | async"
+        class="mt-4"
+        [max]="5"
+        [value]="word.levelKnowledge"
+      ></tui-progress-segmented>
     </ng-container>
 
 

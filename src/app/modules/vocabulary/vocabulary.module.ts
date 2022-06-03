@@ -1,3 +1,5 @@
+import { RtlDirectiveModule } from './../../shared/directives/rtl-directive/rtl-directive.module';
+import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
 import { TranslatorModule } from './../../shared/components/translator/translator.module';
 import { VocabularyResolver } from './../../core/resolvers/vocabulary.resolver';
 import { VocabularyFacade } from './vocabulary.facade';
@@ -27,6 +29,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { StatusMessageComponent } from './status-message/status-message.component';
 import { ToggleModule } from 'src/app/shared/components/toggle/toggle.module';
 import { CsvManagerModule } from './csv-manager/csv-manager.module';
+import { GroupListModule } from 'src/app/shared/components/group-list/group-list.module';
 
 
 
@@ -60,6 +63,7 @@ const vocabularyRoutes: Routes = [
     WordListModule,
     MenuModule,
     PipesModule,
+    GroupListModule,
 
     NbInputModule,
     NbCheckboxModule,
@@ -76,8 +80,12 @@ const vocabularyRoutes: Routes = [
 
     TranslatorModule,
     ToggleModule,
-    CsvManagerModule
+    CsvManagerModule,
 
+    TuiButtonModule,
+    TuiSvgModule,
+
+    RtlDirectiveModule
 
   ],
   providers: [

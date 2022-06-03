@@ -7,6 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { NbCardModule, NbCheckboxModule, NbInputModule, NbProgressBarModule, NbSpinnerModule } from '@nebular/theme';
 import { WordSkeletonComponent } from './word-skeleton/word-skeleton.component';
+import { WordModalComponent } from './word-modal/word-modal.component';
+import { WordModalModule } from './word-modal/word-modal.module';
 
 
 
@@ -17,6 +19,7 @@ import { WordSkeletonComponent } from './word-skeleton/word-skeleton.component';
 
 
   WordSkeletonComponent,
+
 
 
 
@@ -33,8 +36,6 @@ import { WordSkeletonComponent } from './word-skeleton/word-skeleton.component';
     NbProgressBarModule,
     NbCheckboxModule,
     NbInputModule,
-
-
   ],
   exports: [
     WordSkeletonComponent

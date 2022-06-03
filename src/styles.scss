@@ -76,7 +76,7 @@ body {
   color: white !important;
 }
 
-.basic {
+.new-word {
   background-color: whitesmoke !important;
   border-color: whitesmoke !important;
   color: rgb(22, 17, 17) !important;
@@ -90,8 +90,8 @@ body {
 
 .custom-progress-bar {
   .progress-value {
-    background-color: #9932cc !important;
-    border-color: #9932cc !important;
+    // background-color: #9932cc !important;
+    // border-color: #9932cc !important;
     font-size: 11px !important;
     transition: 1.5s;
     animation: move 2s;
@@ -307,4 +307,7 @@ nb-card-body {
 }
 
 
-
+tui-svg {
+  color: var(--tui-base-06);
+  font-size: 16px!important;
+}

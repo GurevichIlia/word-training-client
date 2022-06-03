@@ -1,3 +1,4 @@
+import { TuiSvgModule } from '@taiga-ui/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +20,8 @@ import { GroupsApiService } from './services/groups-api.service';
     ReactiveFormsModule,
     NbInputModule,
 
-    MatFormFieldModule
+    MatFormFieldModule,
+    TuiSvgModule
   ],
   exports: [
     GroupsComponent
