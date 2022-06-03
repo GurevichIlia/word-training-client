@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, TemplateRef, Type, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -54,7 +54,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
 
   selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$.pipe(tap(e => console.log('Selected', e)));
   groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(tap(e => console.log('GROUPS', e)));
-  searchValueControl = new FormControl('');
+  searchValueControl = new UntypedFormControl('');
   subscription$ = new Subject();
   titleForModal: string;
   modalRef: MatDialogRef<any>;
@@ -95,7 +95,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   )
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private vocabularyFacade: VocabularyFacade,
     // private dialog: MatDialog,
@@ -115,12 +115,12 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     this.vocabularyFacade.fetchWordsAndGroups();
   }
 
-  get wordControl(): FormControl {
-    return this.wordForm.get('word') as FormControl;
+  get wordControl(): UntypedFormControl {
+    return this.wordForm.get('word') as UntypedFormControl;
   }
 
-  get translationControl(): FormControl {
-    return this.wordForm.get('translation') as FormControl;
+  get translationControl(): UntypedFormControl {
+    return this.wordForm.get('translation') as UntypedFormControl;
   }
 
   initializeListeners() {

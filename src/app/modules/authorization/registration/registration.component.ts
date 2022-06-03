@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CustomValidators } from 'src/app/shared/custom-validators/custom-validators';
@@ -14,7 +14,7 @@ import { AppStateInterface } from './../../../store/reducers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnDestroy {
-  public readonly registrationForm: FormGroup = this.fb.group({
+  public readonly registrationForm: UntypedFormGroup = this.fb.group({
     nickName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnDestroy {
   public readonly registrationError$: Observable<string> = this.store$.pipe(select(backendErrorsSelector))
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store$: Store<AppStateInterface>
   ) { }
 

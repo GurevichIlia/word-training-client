@@ -4,7 +4,7 @@ import { SupportedLanguage, TranslationConfig, TranslationService } from './../.
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { tap, takeUntil, shareReplay, startWith, finalize } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import { AbstractControl, FormBuilder, } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class TranslatorComponent implements OnInit, OnDestroy {
   private readonly _loading$ = new Subject<boolean>();
   public readonly loading$ = this._loading$.pipe(startWith(false), shareReplay())
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private translationService: TranslationService,
     private persistanceService: PersistanceService,
     private route: ActivatedRoute,

@@ -69,7 +69,7 @@ export const isBottomSheetLoadingSelector = createSelector(
 
 export const groupsSelector = createSelector(
   featureSelector,
-  (state, isVerbs: boolean) => getWordQuantity(state.userGroups, state.userWords, isVerbs ?? state.isVerbs)
+  (state, isVerbs?: boolean) => getWordQuantity(state.userGroups, state.userWords, isVerbs ?? state.isVerbs)
 )
 
 export const selectedGroupSelector = createSelector(

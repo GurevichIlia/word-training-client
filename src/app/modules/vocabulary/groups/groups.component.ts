@@ -1,6 +1,6 @@
 import { GroupsApiService } from 'src/app/modules/vocabulary/groups/services/groups-api.service';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, Type, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
@@ -31,7 +31,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(tap(e => console.log('GROUPS', e)));
   selectedGroup: WordGroup;
   public readonly selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$;
-  groupName = new FormControl('', Validators.required);
+  groupName = new UntypedFormControl('', Validators.required);
   modalLoader$: Observable<boolean> = this.store$.pipe(select(modalLoaderSelector));;
   subscription$ = new Subject();
   modalRef: MatDialogRef<TemplateRef<any>>;

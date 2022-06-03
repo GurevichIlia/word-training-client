@@ -1,5 +1,5 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +8,7 @@ import { FormControl } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-  @Input() filterValue: FormControl;
+  @Input() filterValue: UntypedFormControl;
 
   @Output() addWord = new EventEmitter();
 

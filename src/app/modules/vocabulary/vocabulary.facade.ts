@@ -1,6 +1,6 @@
 import { CopyToClipboardService } from './../../shared/services/copy-to-clipboard.service';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable, of, EMPTY } from 'rxjs';
@@ -141,7 +141,7 @@ export class VocabularyFacade {
   }
 
 
-  addNewWord(wordForm: FormGroup) {
+  addNewWord(wordForm: UntypedFormGroup) {
     if (wordForm.valid) {
 
       const word: Word = wordForm.value
@@ -161,7 +161,7 @@ export class VocabularyFacade {
     //     ));
   }
 
-  updateWord(wordForm: FormGroup) {
+  updateWord(wordForm: UntypedFormGroup) {
 
     if (wordForm.valid) {
 

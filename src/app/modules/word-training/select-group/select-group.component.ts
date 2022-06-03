@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { GroupStatistics } from 'src/app/shared/components/group-statistics/group-statistics.component';
@@ -21,7 +21,7 @@ export class SelectGroupComponent implements OnInit, OnDestroy {
   groupStatistics$: Observable<GroupStatistics>;
   words: Word[] = []
   isShowOnlyVerbs$: Observable<boolean>
-  verbTimeControl = new FormControl(VerbTimeEnum.Future)
+  verbTimeControl = new UntypedFormControl(VerbTimeEnum.Future)
   constructor(
     private wordTrainingFacade: WordTrainingFacade
   ) { }

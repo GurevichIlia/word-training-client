@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ConjugationsFacade } from '../../conjugations.facade';
 
@@ -10,7 +10,7 @@ import { ConjugationsFacade } from '../../conjugations.facade';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerbsInputComponent {
-  verbsInput = new FormControl('');
+  verbsInput = new UntypedFormControl('');
   isLoading$: Observable<boolean> = this.conjugationsFacade.isLoading$
 
   @Output()

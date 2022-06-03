@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { TuiStringHandler } from '@taiga-ui/cdk/types/handler';
 import { tuiItemsHandlersProvider } from '@taiga-ui/kit';
 import { tap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ const STRINGIFY_GROUP: TuiStringHandler<WordGroup> = (group: WordGroup) =>
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupListComponent {
-  public readonly groupControl = new FormControl('');
+  public readonly groupControl = new UntypedFormControl('');
 
   @Input()
   groups: WordGroup[];

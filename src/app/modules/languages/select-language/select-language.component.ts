@@ -2,7 +2,7 @@ import { AppStateInterface } from 'src/app/store/reducers';
 import { ActiveLanguagesTab } from './../types/languages.enums';
 import { LanguageInterface } from 'src/app/modules/languages/types/languages.interfaces';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AddLanguageToUserLanguagesAction, DeleteUserLanguageAction } from 'src/app/store/actions/languages.actions';
 
@@ -13,7 +13,7 @@ import { AddLanguageToUserLanguagesAction, DeleteUserLanguageAction } from 'src/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectLanguageComponent {
-  selectedLanguage = new FormControl('');
+  selectedLanguage = new UntypedFormControl('');
 
   @Input() set candidateToLearn(candidateId: string) {
     this.selectedLanguage.patchValue(candidateId);

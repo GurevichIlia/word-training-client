@@ -1,6 +1,6 @@
 import { animate, keyframes, transition, trigger } from '@angular/animations';
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnDestroy {
   public readonly TEST_EMAIL = 'test-acc@test.com';
   public readonly TEST_PASSWORD = 'testacc';
 
-  public readonly loginForm: FormGroup = this.fb.group({
+  public readonly loginForm: UntypedFormGroup = this.fb.group({
     email: [this.authService.lastEmail || this.TEST_EMAIL, [Validators.required, Validators.email]],
     password: [this.authService.lastEmail ? '' : this.TEST_PASSWORD, Validators.required]
   });
@@ -57,7 +57,7 @@ export class LoginComponent implements OnDestroy {
   )
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store$: Store<AppStateInterface>,
     private navigation: NavigationService,
     private authService: AuthService

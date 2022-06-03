@@ -1,6 +1,6 @@
 import { WordAction } from '../../core/enums/word.enum';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil, tap, shareReplay } from 'rxjs/operators';
 import { Action } from 'src/app/core';
@@ -17,7 +17,7 @@ import { GeneralWord } from './types/general-words.interfaces';
 export class GeneralWordsComponent implements OnInit {
   generalWords$: Observable<GeneralWord[]>;
   wordMenuItems = sharedWordMenuItem;
-  filterControl = new FormControl('');
+  filterControl = new UntypedFormControl('');
   userId$: Observable<string>;
   isLoading$: Observable<boolean>
   constructor(

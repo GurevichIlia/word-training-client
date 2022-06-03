@@ -137,7 +137,6 @@
       }
     }
   },
-  "defaultProject": "word-training",
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"

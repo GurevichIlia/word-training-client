@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Conjugation } from '../modules/conjugations/models/conjugations.interface';
 import { LanguageInterface } from '../modules/languages/types/languages.interfaces';
@@ -56,7 +56,7 @@ export class WordGroup {
 
 }
 
-export interface TypedFormGroup<T> extends FormGroup {
+export interface TypedFormGroup<T> extends UntypedFormGroup {
   value: T,
   valueChanges: Observable<T>,
   getRawValue(): T

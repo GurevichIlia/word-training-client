@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { select, Store } from '@ngrx/store';
 import { fromEvent, Observable, Subject } from 'rxjs';
@@ -30,7 +30,7 @@ export class AssignWordListComponent implements OnInit, AfterViewInit, OnDestroy
   words$: Observable<Word[]>;
   selectedWords: string[] = [];
   subscription$ = new Subject();
-  filterControl = new FormControl('');
+  filterControl = new UntypedFormControl('');
   loading$: Observable<boolean>;
   isCloseBottomSheet$: Observable<boolean>
   goBackAnimation = false

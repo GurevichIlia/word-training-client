@@ -1,9 +1,9 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 export class CustomValidators {
 
   static matchPassword(pass: string, confirmPass: string) {
 
-    return (form: FormGroup) => {
+    return (form: UntypedFormGroup) => {
 
       const passValue = form.get(pass).value
 
