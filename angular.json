@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../Word_training_nodejs_NgRx/build for google-app/client/dist/word-training",
+            "outputPath": "../deploy_to_google_cloud/client/dist/word-training",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
