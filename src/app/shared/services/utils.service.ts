@@ -46,12 +46,12 @@ export class UtilsService {
   verbsForConjugationsParser(verbsAsString: string): string[] {
 
     const verbs: string[] = verbsAsString.split(';')
-    const uniq: Set<string> = new Set(verbs)
-    const uniqVerbs = Array.from(uniq.values())
+    const unique: Set<string> = new Set(verbs)
+    const uniqueVerbs = Array.from(unique.values())
       .filter(verb => Boolean(verb))
-      .map(verb => verb.trim())
+      .map(verb => verb.trim().replace(' ', ''))
 
-    return uniqVerbs
+    return uniqueVerbs
   }
 
   convertVerbsFromServerToCorrectFormat(verbs: VerbWithConjugationsFromServer[]): VerbWithConjugations[] {
