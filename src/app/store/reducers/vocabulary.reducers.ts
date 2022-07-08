@@ -486,10 +486,6 @@ const reducers = createReducer(
     (state): VocabularyStateInterface => {
 
       const isVerbs = !state.isVerbs
-      debugger
-      // const selectedGroup = isVerbs
-      //   ? state.userGroups.filter(group => group.isVerbsGroup)[All]
-      //   : state.userGroups[All]
 
       return {
         ...state,
