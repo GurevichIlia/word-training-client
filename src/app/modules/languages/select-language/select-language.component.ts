@@ -26,7 +26,6 @@ export class SelectLanguageComponent {
       this.selectedLanguage.patchValue(currentlanguageId);
     } else {
       this.selectedLanguage.reset()
-      console.log(this.selectedLanguage.value)
     }
   }
 

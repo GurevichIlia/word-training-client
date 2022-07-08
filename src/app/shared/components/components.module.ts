@@ -7,23 +7,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { NbCardModule, NbCheckboxModule, NbInputModule, NbProgressBarModule, NbSpinnerModule } from '@nebular/theme';
 import { WordSkeletonComponent } from './word-skeleton/word-skeleton.component';
-import { WordModalComponent } from './word-modal/word-modal.component';
-import { WordModalModule } from './word-modal/word-modal.module';
 
 
 
 
 @NgModule({
   declarations: [
-
-
-
-  WordSkeletonComponent,
-
-
-
-
-],
+    WordSkeletonComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

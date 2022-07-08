@@ -1,5 +1,5 @@
 
-<tui-loader [showLoader]="!groups?.length" [overlay]="true">
+<tui-loader [showLoader]="loading" [overlay]="true">
 
   <tui-select
     tuiTextfieldSize="m"
@@ -16,5 +16,6 @@
         [items]="groups"
     ></tui-data-list-wrapper>
   </tui-select>
+
 
 </tui-loader>

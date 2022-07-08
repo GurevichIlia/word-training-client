@@ -2,7 +2,7 @@
   <span class="d-block"> Add an infinitive verb or few verbs.</span>
 </div>
 <div class="d-flex">
-  <input type="text" [disabled]="isLoading$ | async" [formControl]="verbsInput" fieldSize="small" nbInput fullWidth placeholder="ללכת; ללמוד">
+  <input type="text" [disabled]="isLoading$ | async" [formControl]="verbsInput" fieldSize="small" nbInput fullWidth placeholder="ללכת ,ללמוד">
   <a class="custom-button light get-conjugations-btn w-100" *ngIf="!(isLoading$ | async)"
     (click)="onSendVerbs()">Get</a>
   <a class="custom-button light get-conjugations-btn w-100" [ngClass]="{'disabled': true}"  *ngIf="isLoading$ | async">

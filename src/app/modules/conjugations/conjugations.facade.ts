@@ -1,15 +1,14 @@
-import { WordGroup } from './../../shared/interfaces';
-import { addGroupToUserGroupsAction, fetchConjugationsFromCSVAction, saveVerbsAction, selectConjugationsGroupAction, selectVerbForSavingAction, selectVerbsForSavingToggleAction } from './../../store/actions/conjugations.actions';
+import { selectedGroupSelector } from 'src/app/store/selectors/conjugations.selectors';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { ModalName, VerbOptions } from 'src/app/modules/conjugations/models/conjugations.interface';
 import { fetchConjugationsAction } from 'src/app/store/actions/conjugations.actions';
 import { AppStateInterface } from 'src/app/store/reducers';
-import { addGroupModalLoadingSelector, isLoadingSelector, saveVerbsModalLoadingSelector, verbsWithConjugationsSelector } from 'src/app/store/selectors/conjugations.selectors';
-import { VerbWithConjugations, VerbTime } from './models/conjugations.interface';
-import { groupsSelector, selectedGroupSelector } from 'src/app/store/selectors/vocabulary.selectors';
-import { map } from 'rxjs/operators';
+import { addGroupModalLoadingSelector, isLoadingSelector, saveVerbsModalLoadingSelector, selectGroupsForVerbs, verbsWithConjugationsSelector } from 'src/app/store/selectors/conjugations.selectors';
+import { WordGroup } from './../../shared/interfaces';
+import { addGroupToUserGroupsAction, fetchConjugationsFromCSVAction, saveVerbsAction, selectConjugationsGroupAction, selectVerbForSavingAction, selectVerbsForSavingToggleAction } from './../../store/actions/conjugations.actions';
+import { VerbTime, VerbWithConjugations } from './models/conjugations.interface';
 
 
 @Injectable({ providedIn: 'root' })
@@ -18,10 +17,7 @@ export class ConjugationsFacade {
   public readonly closeModal$ = this.closeModal.asObservable()
   public readonly isLoading$: Observable<boolean> = this.store$.pipe(select(isLoadingSelector));
   public readonly verbs$: Observable<VerbWithConjugations[]> = this.store$.pipe(select(verbsWithConjugationsSelector))
-  public readonly groups$: Observable<WordGroup[]> = this.store$.pipe(
-    select(groupsSelector),
-    map(groups => this.showOnlyVerbGroups(groups))
-  )
+  public readonly groups$: Observable<WordGroup[]> = this.store$.select(selectGroupsForVerbs)
   public readonly selectedGroup$: Observable<WordGroup> = this.store$.pipe(select(selectedGroupSelector))
 
   public readonly addGroupModalLoading$: Observable<boolean> = this.store$.pipe(select(addGroupModalLoadingSelector))

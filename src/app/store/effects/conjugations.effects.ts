@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { DefaultGroupId, GroupsService } from 'src/app/core';
+import { BuiltInGroupId, GroupsService } from 'src/app/core';
 import { SaveVerbsResponse, VerbTime, VerbWithConjugations } from 'src/app/modules/conjugations/models/conjugations.interface';
 import { ISaveGroupResponse } from 'src/app/modules/vocabulary/groups/types/groups-state.interface';
 import { UtilsService } from 'src/app/shared/services/utils.service';
@@ -39,7 +39,6 @@ export class ConjugationsEffects {
       )
         .pipe(
           map(({ verbs }) => this.utilsService.convertVerbsFromServerToCorrectFormat(verbs)),
-          tap(v => console.log('VERBS', v)),
           map((verbs: VerbWithConjugations[]) => fetchConjugationsSuccessAction({ verbs })),
           catchError(err => of(fetchConjugationsErrorAction({ error: err })))
         )
@@ -90,7 +89,7 @@ export class ConjugationsEffects {
 
       if (!selectedGroup) return of(saveVerbsErrorAction({ error: 'Please select group' }))
       const selectedVerbs = verbs.filter(verb => verb.selected)
-      const assignedGroups = [DefaultGroupId.ALL_WORDS, selectedGroup._id]
+      const assignedGroups = [BuiltInGroupId.ALL_WORDS, selectedGroup._id]
       return this.conjugationsApiService.saveVerbs(selectedVerbs, assignedGroups)
         .pipe(
           map(({ groups, words }) => {

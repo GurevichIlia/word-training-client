@@ -53,13 +53,13 @@
     </ng-container>
 
     <ng-template #conjugationCardRef let-verb>
-      <app-conjugation-card [verbWithConjugations]="verb">
+      <app-conjugation-cards [verbWithConjugations]="verb">
         <nb-checkbox checkbox status="basic"
          [checked]="verb.selected"
          (checkedChange)="this.selectVerbForSaving(verb)"
          >
         </nb-checkbox>
-      </app-conjugation-card>
+      </app-conjugation-cards>
     </ng-template>
 
     <ng-template #notFound>
@@ -86,7 +86,7 @@
     >
 
 
-    <div class="select-group-modal-container d-flex align-items-baseline">
+    <div class="select-group-modal-container d-flex align-items-center">
       <app-group-list
         class="flex-grow-1"
         [groups]="groups$ | async"

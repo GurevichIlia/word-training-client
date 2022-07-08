@@ -20,12 +20,7 @@
   </ng-container>
 
 
-      <app-group-list
-        [groups]="groups$ | async"
-        [selectedGroup]="selectedGroup$ | async"
-        (selectGroup)="onSelectGroup($event)"
-      >
-      </app-group-list>
+    <app-groups></app-groups>
 
 
     <ng-container *ngIf="(selectedGroup$ | async ) as selectedGroup">

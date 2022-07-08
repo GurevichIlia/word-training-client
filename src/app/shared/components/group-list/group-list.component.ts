@@ -31,6 +31,9 @@ export class GroupListComponent {
     }
   }
 
+  @Input()
+  loading: boolean = false
+
   @Output()
   selectGroup = this.groupControl.valueChanges
 

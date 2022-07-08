@@ -14,7 +14,7 @@ export class ToggleComponent {
   @Input() label: string = ''
   @Input() checked: boolean
   @Output() check = new EventEmitter<void>()
-  isHebrew$: Observable<boolean> = this.learningLanguage$.pipe(map(lang => lang.name === 'Hebrew'), tap(e => console.log('is hebrew', e)))
+  isHebrew$: Observable<boolean> = this.learningLanguage$.pipe(map(lang => lang.name === 'Hebrew'))
   constructor(@Inject(LEARNING_LANGUAGE) private readonly learningLanguage$: Observable<LanguageInterface>) { }
 
   onCheck(): void {

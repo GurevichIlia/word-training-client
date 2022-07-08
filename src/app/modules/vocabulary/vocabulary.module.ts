@@ -63,7 +63,7 @@ const vocabularyRoutes: Routes = [
     WordListModule,
     MenuModule,
     PipesModule,
-    GroupListModule,
+    GroupsModule,
 
     NbInputModule,
     NbCheckboxModule,

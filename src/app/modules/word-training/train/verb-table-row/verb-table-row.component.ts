@@ -7,15 +7,13 @@ import { ConjugationTemplate } from 'src/app/core/models/verbs.model';
   styleUrls: ['./verb-table-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VerbTableRowComponent implements OnInit {
+export class VerbTableRowComponent {
   @Input() conjugation: ConjugationTemplate
   @Input() showText = false
   @Input() isShowEyeIcon = true;
   constructor() { }
 
-  ngOnInit() {
 
-  }
 
   showToggle() {
     this.showText = !this.showText

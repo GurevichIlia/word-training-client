@@ -7,7 +7,7 @@ import { LanguageInterface } from 'src/app/modules/languages/types/languages.int
 import { GroupsApiService } from 'src/app/modules/vocabulary/groups/services/groups-api.service';
 import { WordGroup } from 'src/app/shared/interfaces';
 import { AskQuestionComponent } from 'src/app/shared/modals/ask-question/ask-question.component';
-import { DefaultGroupId, GroupAction } from '../../../../core/enums';
+import { BuiltInGroupId, GroupAction } from '../../../../core/enums';
 import { ISaveGroupResponse } from '../types/groups-state.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -56,7 +56,7 @@ export class GroupsService {
 
   isDefaultGroup(selectedGroup: WordGroup): boolean {
     if (!selectedGroup) return
-    return (selectedGroup._id === DefaultGroupId.ALL_WORDS || selectedGroup._id === DefaultGroupId.FAVORITES) ? true : false;
+    return (selectedGroup._id === BuiltInGroupId.ALL_WORDS || selectedGroup._id === BuiltInGroupId.FAVORITES) ? true : false;
 
   }
 }

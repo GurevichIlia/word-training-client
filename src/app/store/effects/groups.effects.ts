@@ -1,8 +1,9 @@
+import { isShowOnlyVerbsInVocabularySelector } from './../selectors/vocabulary.selectors';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { GroupsService, NavigationService } from 'src/app/core';
 import { LanguageInterface } from 'src/app/modules/languages/types/languages.interfaces';
 import { IAssignWordsResponse, ISaveGroupResponse } from 'src/app/modules/vocabulary/groups/types/groups-state.interface';
@@ -76,23 +77,18 @@ export class GroupsEffects {
   addGroup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VocabularyActionsType.AddGroupToUserGroups),
-      switchMap(({ name }: { name: string }) =>
-        this.store$.pipe(
-          select(currentLanguageSelector),
-          take(1),
-          switchMap((language: LanguageInterface) =>
-            this.groupsService.saveGroup(name)
-              .pipe(
-                map(({ groups, group }: ISaveGroupResponse) => {
-                  return addGroupToUserGroupsSuccessAction({ groups, group });
-                }),
-                catchError((err) => {
-                  return of(addGroupToUserGroupsErrorAction({ error: err.error.message }))
-                })
-              ))
-        )
-
+      withLatestFrom(
+        this.store$.select(isShowOnlyVerbsInVocabularySelector)
       ),
+      switchMap(([{ name }, isVerbGroup]) =>
+        this.groupsService.saveGroup(name, null, isVerbGroup)
+          .pipe(
+            map(({ groups, group }: ISaveGroupResponse) => {
+              return addGroupToUserGroupsSuccessAction({ groups, group });
+            }),
+            catchError((err) => {
+              return of(addGroupToUserGroupsErrorAction({ error: err.error.message }))
+            }))),
     )
   )
 

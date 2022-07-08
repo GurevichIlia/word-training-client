@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
+import { TuiDestroyService } from '@taiga-ui/cdk';
+import { Observable } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 import { VerbWithConjugations } from 'src/app/modules/conjugations/models/conjugations.interface';
 import { WordGroup } from './../../shared/interfaces';
@@ -11,7 +12,8 @@ import { ConjugationsFacade } from './conjugations.facade';
   selector: 'app-conjugations',
   templateUrl: './conjugations.component.html',
   styleUrls: ['./conjugations.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TuiDestroyService]
 })
 export class ConjugationsComponent implements OnInit {
   @ViewChild('selectGroupModalTemplateRef') selectGroupModalTemplateRef: TemplateRef<any>;
@@ -24,12 +26,12 @@ export class ConjugationsComponent implements OnInit {
   public readonly addGroupModalLoading$: Observable<boolean> = this.conjugationsFacade.addGroupModalLoading$
   public readonly saveVerbsModalLoading$: Observable<boolean> = this.conjugationsFacade.saveVerbsModalLoading$
   public readonly verbs$: Observable<VerbWithConjugations[]> = this.conjugationsFacade.verbs$
-  private readonly destroy$ = new Subject();
 
   constructor(
     private conjugationsFacade: ConjugationsFacade,
     private fb: UntypedFormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(TuiDestroyService) private destroy$: Observable<void>
   ) { }
 
   ngOnInit(): void {

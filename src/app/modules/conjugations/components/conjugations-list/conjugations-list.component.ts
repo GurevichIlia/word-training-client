@@ -27,7 +27,6 @@ export class ConjugationsListComponent {
   }
 
   public onScroll() {
-    console.log('SCROLL')
     this.showMoreWords();
   }
 

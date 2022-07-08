@@ -1,17 +1,17 @@
 import { WordGroup, Word } from 'src/app/shared/interfaces';
-import { DefaultGroupId } from '../enums';
+import { BuiltInGroupId } from '../enums';
 
 export const filterWordsByGroup = (selectedGroup: WordGroup, words: Word[]): Word[] => {
 
   if (!selectedGroup) return words
 
-  if (selectedGroup._id === DefaultGroupId.ALL_WORDS) {
+  if (selectedGroup._id === BuiltInGroupId.ALL_WORDS) {
 
     return words;
 
   }
 
-  if (selectedGroup._id === DefaultGroupId.FAVORITES) {
+  if (selectedGroup._id === BuiltInGroupId.FAVORITES) {
 
     return filterWordsByFavorite(words);
 

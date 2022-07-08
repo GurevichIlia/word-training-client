@@ -1,6 +1,6 @@
 import { All, defaultGroups } from './../../core/models/groups.model';
 import { updateWordsAction } from './../actions/vocabulary.actions';
-import { DefaultGroupId } from './../../core/enums/group.enum';
+import { BuiltInGroupId } from './../../core/enums/group.enum';
 import { addWordsFromCsvErrorAction, deleteUserWordFromGroupAction, deleteUserWordFromGroupErrorAction, deleteUserWordFromGroupSuccessAction, selectVocabularyGroupAction, updateGroupsAction } from 'src/app/store/actions/vocabulary.actions';
 import { BackendErrorInterface } from './../../core/models/general.model';
 import { Action, createReducer, on } from '@ngrx/store';
@@ -257,7 +257,7 @@ const reducers = createReducer(
         ...state,
         userWords,
         userGroups: state.userGroups.map(group => {
-          if (group._id === DefaultGroupId.FAVORITES) {
+          if (group._id === BuiltInGroupId.FAVORITES) {
             return { ...group, wordQuantity: userWords.filter(word => word.isFavorite === true).length }
           }
 
@@ -483,11 +483,19 @@ const reducers = createReducer(
   ),
   on(
     showVerbsInVocabularyToggleAction,
-    (state, action): VocabularyStateInterface => ({
-      ...state,
-      selectedGroup: defaultGroups[All],
-      isVerbs: !state.isVerbs
-    })
+    (state): VocabularyStateInterface => {
+
+      const isVerbs = !state.isVerbs
+      debugger
+      // const selectedGroup = isVerbs
+      //   ? state.userGroups.filter(group => group.isVerbsGroup)[All]
+      //   : state.userGroups[All]
+
+      return {
+        ...state,
+        isVerbs
+      }
+    }
   ),
   on(
     updateWordsAction,

@@ -15,6 +15,8 @@ import { ConjugationsComponent } from './conjugations.component';
 import { ConjugationsListComponent } from './components/conjugations-list/conjugations-list.component';
 import { ConjugationCardComponent } from './components/conjugation-card/conjugation-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ConjugationCellComponent } from 'src/app/shared/components/conjugation-cell/conjugation-cell.component';
+import { ConjugationCardsComponent } from './components/conjugation-cards/conjugation-cards.component';
 
 
 
@@ -25,6 +27,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CsvVerbsInputComponent,
     ConjugationsListComponent,
     ConjugationCardComponent,
+    ConjugationCellComponent,
+    ConjugationCardsComponent
   ],
   imports: [
     CommonModule,

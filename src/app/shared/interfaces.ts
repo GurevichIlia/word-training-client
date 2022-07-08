@@ -62,5 +62,10 @@ export interface TypedFormGroup<T> extends UntypedFormGroup {
   getRawValue(): T
 }
 
+export interface VocabularyViewModel {
+  words: Word[];
+  groups: WordGroup[];
+  selectedGroup: WordGroup;
+}
 
 

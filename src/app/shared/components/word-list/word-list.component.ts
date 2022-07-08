@@ -43,7 +43,6 @@ export class WordListComponent {
     this.trackWords = this.utilsService.trackBy
   }
   onScroll() {
-    console.log('SCROLL')
     this.showMoreWords();
 
   }

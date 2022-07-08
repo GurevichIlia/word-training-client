@@ -45,7 +45,7 @@ export class UtilsService {
 
   verbsForConjugationsParser(verbsAsString: string): string[] {
 
-    const verbs: string[] = verbsAsString.split(';')
+    const verbs: string[] = verbsAsString.split(',')
     const unique: Set<string> = new Set(verbs)
     const uniqueVerbs = Array.from(unique.values())
       .filter(verb => Boolean(verb))

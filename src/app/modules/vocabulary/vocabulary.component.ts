@@ -19,13 +19,13 @@ import {
 } from 'src/app/store/actions/vocabulary.actions';
 import { errorSelector } from 'src/app/store/selectors/general.selector';
 import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
-import { csvLoaderSelector, isCloseCsvHandlerSelector, isCloseModalSelector, isResetCsvHandlerSelector, modalLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
+import { csvLoaderSelector, isCloseCsvHandlerSelector, isCloseModalSelector, isResetCsvHandlerSelector, modalLoaderSelector, vocabularyVM } from 'src/app/store/selectors/vocabulary.selectors';
 import { WordAction } from '../../core/enums/word.enum';
 import { BackendErrorInterface } from './../../core/models/general.model';
 import { SupportedLanguage } from './../../core/services/translation.service';
 import { TranslatorComponent } from './../../shared/components/translator/translator.component';
 import { WordModalComponent } from './../../shared/components/word-modal/word-modal.component';
-import { WordGroup } from './../../shared/interfaces';
+import { WordGroup, VocabularyViewModel } from './../../shared/interfaces';
 import { shareWordToGeneralWordsAction } from './../../store/actions/vocabulary.actions';
 import { AppStateInterface } from './../../store/reducers';
 import { isOpenWordsToAssignSelector } from './../../store/selectors/vocabulary.selectors';
@@ -52,8 +52,8 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     isFavorite: [false]
   });
 
-  selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$.pipe(tap(e => console.log('Selected', e)));
-  groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(tap(e => console.log('GROUPS', e)));
+  selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$;
+  groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$;
   searchValueControl = new UntypedFormControl('');
   subscription$ = new Subject();
   titleForModal: string;
@@ -109,6 +109,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     this.initializeListeners()
     this.showInstallAppSuggestion();
     this.detectDevice();
+
   }
 
   fetchData() {
@@ -183,7 +184,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
 
   }
 
-  getActionFromChildren(event: Action<Word>) {
+  public getActionFromChildren(event: Action<Word>) {
     switch (event.action) {
       case WordAction.SHARE_FOR_ALL: this.shareWordsForAll([event.payload]);
         break
@@ -203,7 +204,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   }
 
   private openGoogleTranslator(text: string, language?: string): void {
-    window.open(`https://translate.google.com/?text=${text}`)
+    window.open(`https://translate.google.com/?sl=iw&tl=en&text=${text}&op=translate`)
   }
 
 
@@ -235,9 +236,9 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     const beforeinstallprompt$ = fromEvent(window, 'beforeinstallprompt');
 
     beforeinstallprompt$.pipe(
-        delay(4000),
-        takeUntil(this.subscription$)
-      )
+      delay(4000),
+      takeUntil(this.subscription$)
+    )
       .subscribe(e => {
         // Prevent the mini-infobar from appearing on mobile
         e.preventDefault();
@@ -277,7 +278,6 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   }
 
   onSelectGroup(group: WordGroup) {
-    console.log('selection ', group)
     this.vocabularyFacade.selectGroup(group)
     // this.store$.dispatch(setSelectedGroupAction({ group }))
     // this.vocabularyService.setSelectedGroup(group);

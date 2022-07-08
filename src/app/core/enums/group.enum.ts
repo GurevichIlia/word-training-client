@@ -6,7 +6,7 @@ export enum GroupAction {
   ADD_MY_WORDS = 'Add my words',
 }
 
-export enum DefaultGroupId {
+export enum BuiltInGroupId {
   ALL_WORDS = '1',
   FAVORITES = '2'
 }

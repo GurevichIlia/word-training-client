@@ -1,74 +1,92 @@
 import { Conjugation, PresentConjugation } from 'src/app/modules/conjugations/models/conjugations.interface';
 
-export interface ConjugationTemplate {
-  pronoun: keyof (Conjugation & PresentConjugation)
-  hebPronoun: string
-  value: string
+export type ConjugationTemplate = {
+  pronoun: keyof (Conjugation & PresentConjugation);
+  hebPronoun: string;
+  value: string;
+} & ConjugationStyle
+
+export interface ConjugationStyle {
+  cellEnd?: number;
+  cellStart?: number;
+  borderRight?: string;
+  borderLeft?: string
 }
+
+const border: string = '1px solid #f5893de0'
 
 export const CONJUGATION_TEMPLATE_MODEL: ConjugationTemplate[] = [
   {
     pronoun: 'i',
     hebPronoun: 'אני',
-    value: ''
+    value: '',
+    cellStart: 1,
+    cellEnd: 3,
   },
   {
     pronoun: 'you_male',
     hebPronoun: 'אַתה',
-    value: ''
+    value: '',
+    borderLeft: border
   },
   {
     pronoun: 'you_female',
     hebPronoun: 'את',
-    value: ''
+    value: '',
+    borderRight: border
   },
   {
     pronoun: 'he',
     hebPronoun: 'הוא',
-    value: ''
+    value: '',
+    borderLeft: border
   },
   {
     pronoun: 'she',
     hebPronoun: 'היא',
-    value: ''
+    value: '',
+    borderRight: border
   },
   {
     pronoun: 'we',
     hebPronoun: 'אנחנו',
-    value: ''
+    value: '',
+    cellStart: 1,
+    cellEnd: 3,
   },
-
   {
     pronoun: 'you_plural',
     hebPronoun: 'אתם / אתן',
-    value: ''
+    value: '',
+    borderLeft: border
   },
   {
     pronoun: 'they',
     hebPronoun: 'הם / הן',
-    value: ''
+    value: '',
+    borderRight: border
   }
 ]
 
 export const CONJUGATION_TEMPLATE_PRESENT_TIME_MODEL: ConjugationTemplate[] = [
   {
     pronoun: 'singularMan',
-    hebPronoun: 'זבר',
+    hebPronoun: 'אני/אתה/הוא',
     value: ''
   },
   {
     pronoun: 'singularFem',
-    hebPronoun: 'נקבה',
+    hebPronoun: 'אני/את/היא',
     value: ''
   },
   {
     pronoun: 'pluralMan',
-    hebPronoun: 'רבים',
+    hebPronoun: 'אנחנו/אתם/הן',
     value: ''
   },
   {
     pronoun: 'pluralFem',
-    hebPronoun: 'רבות',
+    hebPronoun: 'נחנו/אתן/הן',
     value: ''
   }
 ]

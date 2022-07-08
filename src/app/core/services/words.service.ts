@@ -11,7 +11,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { replaceNekudot } from '../utils/replace-nikudot';
 import { IModalData } from './../../shared/modals/ask-question/ask-question.component';
 import { NotificationsService } from './../../shared/services/notifications.service';
-import { DefaultGroupId } from './../enums/group.enum';
+import { BuiltInGroupId } from './../enums/group.enum';
 import { AddUserWordResponseInterface, DeleteUserWordResponseInterface, EditUserWordResponseInterface } from './../models/words.interface';
 
 @Injectable({
@@ -49,7 +49,7 @@ export class WordsService {
   // }
 
   addNewWord(word: Partial<Word>, language: LanguageInterface, selectedGroupId?: string): Observable<AddUserWordResponseInterface> {
-    const updatedWord = { ...word, assignedGroups: [DefaultGroupId.ALL_WORDS, selectedGroupId] };
+    const updatedWord = { ...word, assignedGroups: [BuiltInGroupId.ALL_WORDS, selectedGroupId] };
 
     return this.apiWords.addWord(updatedWord, language)
       .pipe(
@@ -163,11 +163,11 @@ export class WordsService {
 
   filterWordsByGroup(selectedGroup: WordGroup, words: Word[]): Word[] {
     if (!selectedGroup) return
-    if (selectedGroup._id === DefaultGroupId.ALL_WORDS) {
+    if (selectedGroup._id === BuiltInGroupId.ALL_WORDS) {
 
       return words;
 
-    } else if (selectedGroup._id === DefaultGroupId.FAVORITES) {
+    } else if (selectedGroup._id === BuiltInGroupId.FAVORITES) {
 
       return this.filterWordsByFavorite(words);
 
@@ -207,7 +207,7 @@ export class WordsService {
     // return this.generalState.getCurrentLearningLanguage$()
     //   .pipe(
     //     switchMap(language => {
-    const assignedGroups = JSON.stringify([DefaultGroupId.ALL_WORDS, selectedGroupId]);
+    const assignedGroups = JSON.stringify([BuiltInGroupId.ALL_WORDS, selectedGroupId]);
     return this.apiWords.addWordsFromCSV(formData, assignedGroups).pipe(
       catchError(err => {
         this.notification.error('Something went wrong, file was not uploaded');

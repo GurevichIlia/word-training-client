@@ -86,7 +86,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     if (!this.groupName.valid) {
       return this.notification.warning('', 'Please fill in required fields');
     }
-
+    
     const groupName: string = this.groupName.value
 
     if (isUpdate) {

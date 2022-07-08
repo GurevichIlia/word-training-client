@@ -1,11 +1,10 @@
-import { CopyToClipboardService } from './../../shared/services/copy-to-clipboard.service';
 import { Injectable } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, Observable, of, EMPTY } from 'rxjs';
-import { filter, map, mergeMap, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { DefaultGroupId, MenuItem, SupportedLanguage, TranslationConfig, TranslationService, WordAction, wordMenuItems } from 'src/app/core';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MenuItem, SupportedLanguage, TranslationConfig, TranslationService, WordAction } from 'src/app/core';
 import { InstallAppService } from 'src/app/core/install-app/install-app.service';
 import { InstallHelperFunctionsService } from 'src/app/core/install-app/install-helper-functions.service';
 import { GroupStatisticsService } from 'src/app/shared/components/group-statistics/group-statistics.service';
@@ -23,9 +22,10 @@ import {
 } from 'src/app/store/actions/vocabulary.actions';
 import { AppStateInterface } from 'src/app/store/reducers';
 import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
-import { allWordsSelector, selectedGroupSelector, selectWordsForVocabulary, vocabularyLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
+import { selectedGroupSelector, selectWordMenu, selectWordsForVocabulary, vocabularyLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
 import { GeneralWord } from '../general-words/types/general-words.interfaces';
 import { WordsService } from './../../core/services/words.service';
+import { CopyToClipboardService } from './../../shared/services/copy-to-clipboard.service';
 import { fetchGroupsAction } from './../../store/actions/vocabulary.actions';
 import { groupsSelector, isShowOnlyVerbsInVocabularySelector } from './../../store/selectors/vocabulary.selectors';
 
@@ -36,21 +36,6 @@ import { groupsSelector, isShowOnlyVerbsInVocabularySelector } from './../../sto
 @Injectable({ providedIn: 'root' })
 export class VocabularyFacade {
   isShowVerbsToggle$: Observable<boolean> = this.store$.pipe(select(currentLanguageSelector), map(lang => lang.name === 'Hebrew'))
-
-  // words$ = this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector),
-  //   switchMap(isVerbs => {
-  //     return this.wordsService.verbsFilter(
-  //       this.store$.pipe(select(allWordsSelector)),
-  //       isVerbs
-  //     )
-  //   }),
-  //   switchMap(words =>
-  //     this.selectedGroup$.pipe(
-  //       map(selectedGroup =>
-  //         this.wordsService.filterWordsByGroup(selectedGroup, words))
-  //     )
-  //   )
-  // )
 
   public readonly words$ = this.store$.select(selectWordsForVocabulary)
 
@@ -72,44 +57,13 @@ export class VocabularyFacade {
     return this.groupStatisticsService.getGroupStatistics(words$)
   }
 
-  get groups$(): Observable<WordGroup[]> {
-    return this.isShowVerbs$.pipe(switchMap(isShowOnlyVerbs => {
-
-      if (isShowOnlyVerbs) {
-        return this.store$.pipe(select(groupsSelector), map(groups => groups.filter(group => group.isVerbsGroup || group._id === '1' || group._id === '2')))
-      }
-
-      return this.store$.pipe(select(groupsSelector))
-    })
-    )
-  }
-
-  // get words$(): Observable<Word[]> {
-  //   // return this.store$.pipe(
-  //   //   select(allWordsSelector),
-  //   // )
-  //   return this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector), switchMap(isVerbs => {
-
-  //     return this.wordsService.verbsFilter(
-  //       this.store$.pipe(select(allWordsSelector), tap(w => console.log('WORDS', w))),
-  //       isVerbs
-  //     )
-  //   }))
-  // }
+  public readonly groups$: Observable<WordGroup[]> = this.store$.pipe(select(groupsSelector));
 
   public readonly selectedGroup$: Observable<WordGroup> = this.store$.pipe(select(selectedGroupSelector))
 
   public readonly vocabularyLoader$: Observable<boolean> = this.store$.pipe(select(vocabularyLoaderSelector))
 
-  public readonly wordMenuItems$: Observable<MenuItem<WordAction>[]> = this.selectedGroup$.pipe(
-    filter(group => group !== null),
-    map(group => {
-      if (group._id === DefaultGroupId.ALL_WORDS || group._id === DefaultGroupId.FAVORITES) {
-        return wordMenuItems.filter(item => item.action !== WordAction.DELETE_FROM_GROUP)
-      }
-
-      return wordMenuItems
-    }))
+  public readonly wordMenuItems$: Observable<MenuItem<WordAction>[]> = this.store$.select(selectWordMenu)
 
   public readonly isShowVerbs$: Observable<boolean> = this.store$.pipe(select(isShowOnlyVerbsInVocabularySelector))
 
