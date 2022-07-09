@@ -1,14 +1,11 @@
-import { All } from './../../core/models/groups.model';
-import { VocabularyViewModel, WordGroup } from 'src/app/shared/interfaces';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { BuiltInGroupId, MenuItem, WordAction, wordMenuItems } from 'src/app/core';
+import { MenuItem, WordAction, wordMenuItems } from 'src/app/core';
 import { filterWordsByGroup } from 'src/app/core/utils/filter-words-by-group';
-import { getWordQuantity } from 'src/app/core/utils/get-word-quantity';
+import { GroupsUtils } from 'src/app/core/utils/groups.utils';
+import { VocabularyViewModel } from 'src/app/shared/interfaces';
 import { AppStateInterface } from 'src/app/store/reducers';
 import { VocabularyStateInterface, VOCABULARY_REDUCER_NODE } from '../reducers/vocabulary.reducers';
-import { group } from '@angular/animations';
-import { filter, map } from 'rxjs/operators';
-import { isBuiltInGroup } from 'src/app/core/utils/groups.utils';
+import { All } from './../../core/models/groups.model';
 
 const featureSelector = createFeatureSelector<AppStateInterface, VocabularyStateInterface>(VOCABULARY_REDUCER_NODE)
 
@@ -35,6 +32,11 @@ export const errorSelector = createSelector(
 export const allWordsSelector = createSelector(
   featureSelector,
   state => state.userWords
+)
+
+export const allGroupsSelector = createSelector(
+  featureSelector,
+  state => state.userGroups
 )
 
 export const allWordsQuantitySelector = createSelector(
@@ -87,20 +89,24 @@ export const vocabularyVM = createSelector(
   featureSelector,
   ({ isVerbs, userGroups, userWords, ...state }): VocabularyViewModel => {
 
-    if (!state.selectedGroup) {
-      return;
-    }
+    if (!userGroups || !userWords) return
 
     const selectedGroup = state.selectedGroup ?? userGroups[All]
 
-    const words = filterWordsByGroup(selectedGroup, userWords.filter(word => isVerbs ? word.isVerb : word))
+    const words = userWords.filter(word => isVerbs ? word.isVerb : word)
 
-    const groups = isVerbs ? userGroups.filter(group => group.isVerbsGroup || group._id === BuiltInGroupId.ALL_WORDS || group._id === BuiltInGroupId.FAVORITES) : userGroups
+    const wordsFilteredByGroup = filterWordsByGroup(selectedGroup, words)
+
+    const groups = GroupsUtils.getGroupsForView({
+      words: userWords,
+      isVerbs,
+      groups: userGroups
+    })
 
     return {
-      words,
-      groups: getWordQuantity(groups, words),
-      selectedGroup: getWordQuantity([selectedGroup], words)[0]
+      words: wordsFilteredByGroup,
+      groups,
+      selectedGroup: GroupsUtils.findSelectedGroup(groups, selectedGroup)
     }
   }
 )
@@ -115,7 +121,7 @@ export const selectWordsForVocabulary = createSelector(
   (viewModel) => viewModel?.words
 )
 
-export const groupsSelector = createSelector(
+export const selectGroupsForVocabulary = createSelector(
   vocabularyVM,
   (viewModel) => viewModel?.groups
 )
@@ -126,7 +132,7 @@ export const selectWordMenu = createSelector(
 
     if (!selectedGroup) return []
 
-    if (isBuiltInGroup(selectedGroup)) {
+    if (GroupsUtils.isBuiltInGroup(selectedGroup)) {
       return wordMenuItems.filter(item => item.action !== WordAction.DELETE_FROM_GROUP)
     }
 

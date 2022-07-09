@@ -1,7 +1,10 @@
+import { allWordsSelector, allGroupsSelector } from 'src/app/store/selectors/vocabulary.selectors';
 import { IWordTrainingState } from 'src/app/core/models/word-training.interfaces';
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { AppStateInterface } from '../reducers'
 import { WORD_TRAINING_REDUCER_NODE } from '../reducers/word-training.reducer'
+import { WordsUtils } from 'src/app/core/utils/words.utils';
+import { GroupsUtils } from 'src/app/core/utils/groups.utils';
 
 export type IConfigData = Pick<IWordTrainingState, 'uniqueLearnedWords' | 'allLearnedCardsQuantity' | 'selectedGroup' | 'isStarted'>
 
@@ -73,5 +76,22 @@ export const isShowOnlyVerbsSelector = createSelector(
 export const hebrewVerbTimeSelector = createSelector(
   featureSelector,
   state => state.hebrewVerbTime
+)
+
+export const selectWords = createSelector(
+  allWordsSelector,
+  isShowOnlyVerbsSelector,
+  (words, isVerbs,) => isVerbs ? WordsUtils.getVerbs(words) : words
+)
+
+export const selectAvailableGroupsForTraining = createSelector(
+  allGroupsSelector,
+  isShowOnlyVerbsSelector,
+  allWordsSelector,
+  (groups, isVerbs, words) => GroupsUtils.getGroupsForView({
+    words,
+    groups,
+    isVerbs
+  })
 )
 

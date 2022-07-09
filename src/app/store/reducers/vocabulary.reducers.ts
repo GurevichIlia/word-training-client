@@ -489,6 +489,7 @@ const reducers = createReducer(
 
       return {
         ...state,
+        selectedGroup: undefined,
         isVerbs
       }
     }

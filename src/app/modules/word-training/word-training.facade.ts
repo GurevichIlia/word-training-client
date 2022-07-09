@@ -1,28 +1,29 @@
-import { VerbTime } from 'src/app/modules/conjugations/models/conjugations.interface';
-import { WordsService } from 'src/app/core/services';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, take, tap, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { NavigationService } from 'src/app/core';
 import { AppRoutes } from 'src/app/core/routes/routes';
+import { WordsService } from 'src/app/core/services';
+import { VerbTime } from 'src/app/modules/conjugations/models/conjugations.interface';
 import { GroupStatistics } from 'src/app/shared/components/group-statistics/group-statistics.component';
 import { GroupStatisticsService } from 'src/app/shared/components/group-statistics/group-statistics.service';
 import { Word, WordGroup } from 'src/app/shared/interfaces';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 import { addWordToFavoriteAction, selectGroupAction, showVerbsToggleAction, startTrainAction } from 'src/app/store/actions/word-training.actions';
 import { AppStateInterface } from 'src/app/store/reducers';
-import { allWordsSelector, groupsSelector } from 'src/app/store/selectors/vocabulary.selectors';
-import { configDataSelector, hebrewVerbTimeSelector, IConfigData, isShowOnlyVerbsSelector, isShowPreviousWordButtonSelector, learningWordSelector } from 'src/app/store/selectors/word-training.selector';
+import { configDataSelector, hebrewVerbTimeSelector, IConfigData, isShowOnlyVerbsSelector, isShowPreviousWordButtonSelector, learningWordSelector, selectAvailableGroupsForTraining } from 'src/app/store/selectors/word-training.selector';
 import {
   changeGroupAction, nextWordAction,
   previousWordAction, repeatTrainingAction, resetWordTrainingStateAction, saveTrainingProgressAction, stopTrainingAction
 } from './../../store/actions/word-training.actions';
+import { selectWords } from './../../store/selectors/word-training.selector';
 import { CounterState } from './train/train.component';
 import { WordTrainingService } from './word-training.service';
-
+const ALL_WORDS = 0
 @Injectable()
 export class WordTrainingFacade {
+
   constructor(
     private store$: Store<AppStateInterface>,
     private groupStatisticsService: GroupStatisticsService,
@@ -61,26 +62,12 @@ export class WordTrainingFacade {
 
   }
 
-  get groups$(): Observable<WordGroup[]> {
-    const ALL_WORDS = 0
-    return this.isShowVerbs$.pipe(switchMap(isVerbs => {
-      return this.store$.pipe(select(groupsSelector, isVerbs),
-        filter(groups => groups?.length > 0),
-        tap(groups => this.selectGroup(groups[ALL_WORDS])))
-    }))
+  public readonly groups$: Observable<WordGroup[]> = this.store$.select(selectAvailableGroupsForTraining).pipe(
+    filter(groups => groups?.length > 0),
+    tap(groups => this.selectGroup(groups[ALL_WORDS]))
+  )
 
-  }
-
-  get allWords$(): Observable<Word[]> {
-
-    return this.store$.pipe(select(isShowOnlyVerbsSelector), switchMap(isVerbs => {
-
-      return this.wordsService.verbsFilter(
-        this.store$.pipe(select(allWordsSelector)),
-        isVerbs
-      )
-    }))
-  }
+  public readonly allWords$: Observable<Word[]> = this.store$.pipe(select(selectWords))
 
   get wordsInGroup$(): Observable<Word[]> {
     const wordsByGroup$ = this.utilsService.filterByGroup(this.allWords$, this.selectedGroup$)

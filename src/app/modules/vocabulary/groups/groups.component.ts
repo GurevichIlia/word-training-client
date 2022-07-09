@@ -4,7 +4,7 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil, tap, shareReplay } from 'rxjs/operators';
 import { Action, BackendErrorInterface } from 'src/app/core';
 import { WordGroup } from 'src/app/shared/interfaces';
 import { saveEditedGroupAction } from 'src/app/store/actions/vocabulary.actions';
@@ -28,7 +28,7 @@ import { GroupsService } from './services/groups.service';
 export class GroupsComponent implements OnInit, OnDestroy {
   @ViewChild('groupModal') groupModal: TemplateRef<any>;
   @ViewChild('deleteGroupModal') deleteGroupModal: TemplateRef<any>;
-  groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(tap(e => console.log('GROUPS', e)));
+  groups$: Observable<WordGroup[]> = this.vocabularyFacade.groups$.pipe(shareReplay());
   selectedGroup: WordGroup;
   public readonly selectedGroup$: Observable<WordGroup> = this.vocabularyFacade.selectedGroup$;
   groupName = new UntypedFormControl('', Validators.required);
@@ -38,6 +38,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   modalTitle = '';
   menuItems$: Observable<GroupMenuItem[]>
   errorMessage$: Observable<string | BackendErrorInterface>
+  public readonly loading$ = this.groups$.pipe(map((groups) => Boolean(!groups?.length)))
   constructor(
     private notification: NotificationsService,
     private groupsService: GroupsService,
@@ -86,7 +87,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     if (!this.groupName.valid) {
       return this.notification.warning('', 'Please fill in required fields');
     }
-    
+
     const groupName: string = this.groupName.value
 
     if (isUpdate) {

@@ -27,7 +27,7 @@ import { GeneralWord } from '../general-words/types/general-words.interfaces';
 import { WordsService } from './../../core/services/words.service';
 import { CopyToClipboardService } from './../../shared/services/copy-to-clipboard.service';
 import { fetchGroupsAction } from './../../store/actions/vocabulary.actions';
-import { groupsSelector, isShowOnlyVerbsInVocabularySelector } from './../../store/selectors/vocabulary.selectors';
+import { selectGroupsForVocabulary, isShowOnlyVerbsInVocabularySelector } from './../../store/selectors/vocabulary.selectors';
 
 
 
@@ -57,7 +57,7 @@ export class VocabularyFacade {
     return this.groupStatisticsService.getGroupStatistics(words$)
   }
 
-  public readonly groups$: Observable<WordGroup[]> = this.store$.pipe(select(groupsSelector));
+  public readonly groups$: Observable<WordGroup[]> = this.store$.pipe(select(selectGroupsForVocabulary));
 
   public readonly selectedGroup$: Observable<WordGroup> = this.store$.pipe(select(selectedGroupSelector))
 

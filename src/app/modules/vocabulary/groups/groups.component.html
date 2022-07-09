@@ -1,6 +1,7 @@
 <div class="groups-container d-flex align-items-center">
   <div class="groups">
-    <app-group-list
+    <app-group-list 
+      [loading]="loading$ | async"
       [groups]="groups$ | async"
       [selectedGroup]="selectedGroup$ | async"
       (selectGroup)="onSelectGroup($event)"
