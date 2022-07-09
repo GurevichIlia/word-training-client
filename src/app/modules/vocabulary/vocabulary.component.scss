@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .main-content {
   height: 100%;
@@ -24,19 +24,18 @@
   justify-content: space-around;
 }
 
-.wordDialogFooter>button {
+.wordDialogFooter > button {
   width: 140px;
   margin: 5px;
 }
 
 .menu {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .matmenu {
   padding: 10px;
-
 }
 
 .menuitem {
@@ -55,16 +54,16 @@
   margin-bottom: 20px;
 
   h4 {
-    color: $titleColor !important
+    color: $titleColor !important;
   }
-
 }
 
 .search {
   width: 100%;
 }
 
-.add-word-btn {}
+.add-word-btn {
+}
 
 i[class^="fas fa"] {
   font-size: 30px;
@@ -116,4 +115,9 @@ i[class^="fas fa"] {
 .rtlInput {
   text-align: end;
   direction: rtl;
+}
+
+.word-type {
+  font-weight: 600;
+  color: #8d8d8d;
 }

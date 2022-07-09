@@ -11,6 +11,11 @@ export class ConjugationCardComponent implements OnInit {
   @Input()
   conjugation: Conjugation
 
+  @Input()
+  showText = false
+
+  
+
 
   constructor() { }
 

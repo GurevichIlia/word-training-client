@@ -11,9 +11,18 @@ export class ConjugationCellComponent implements OnInit {
 
   @Input() conjugation: ConjugationTemplate
 
+  @Input() showText = true;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  showTextToggle() {
+    this.showText = !this.showText
+  }
+
+  get conjugationText(): string {
+    return this.showText === true ? this.conjugation?.value : '? ? ? ?'
+  }
 }

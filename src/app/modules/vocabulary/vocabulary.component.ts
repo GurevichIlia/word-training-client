@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, mapTo, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, filter, map, mapTo, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Action, MenuItem } from 'src/app/core';
 import { Languages } from 'src/app/core/enums/languages.enum';
 import { GroupStatistics } from 'src/app/shared/components/group-statistics/group-statistics.component';
@@ -19,13 +19,12 @@ import {
 } from 'src/app/store/actions/vocabulary.actions';
 import { errorSelector } from 'src/app/store/selectors/general.selector';
 import { currentLanguageSelector } from 'src/app/store/selectors/languages.selectors';
-import { csvLoaderSelector, isCloseCsvHandlerSelector, isCloseModalSelector, isResetCsvHandlerSelector, modalLoaderSelector, vocabularyVM } from 'src/app/store/selectors/vocabulary.selectors';
+import { csvLoaderSelector, isCloseCsvHandlerSelector, isCloseModalSelector, isResetCsvHandlerSelector, modalLoaderSelector } from 'src/app/store/selectors/vocabulary.selectors';
 import { WordAction } from '../../core/enums/word.enum';
 import { BackendErrorInterface } from './../../core/models/general.model';
 import { SupportedLanguage } from './../../core/services/translation.service';
 import { TranslatorComponent } from './../../shared/components/translator/translator.component';
-import { WordModalComponent } from './../../shared/components/word-modal/word-modal.component';
-import { WordGroup, VocabularyViewModel } from './../../shared/interfaces';
+import { WordGroup } from './../../shared/interfaces';
 import { shareWordToGeneralWordsAction } from './../../store/actions/vocabulary.actions';
 import { AppStateInterface } from './../../store/reducers';
 import { isOpenWordsToAssignSelector } from './../../store/selectors/vocabulary.selectors';
@@ -66,17 +65,18 @@ export class VocabularyComponent implements OnInit, OnDestroy {
 
   isShowUploader = false;
 
-  // public readonly userWordsFiltredByGroupAndSearchValue$: Observable<Word[]> = this.searchValueControl.valueChanges.pipe(
-  //   startWith(''),
-  //   debounceTime(300),
-  //   distinctUntilChanged(),
-  //   switchMap((value: string) => this.vocabularyFacade.getUserWordsFiltredByGroup(value)),
-  // )
+  public readonly userWordsFilteredByGroupAndSearchValue$: Observable<Word[]> = this.searchValueControl.valueChanges.pipe(
+    startWith(''),
+    debounceTime(300),
+    distinctUntilChanged(),
+    switchMap((value: string) => this.words$.pipe(
+      map(words => this.vocabularyFacade.filterBySearchValue(value, words))
+    )),
+  )
 
-  public readonly userWordsFilteredByGroupAndSearchValue$: Observable<Word[]> = this.vocabularyFacade.words$
+  public readonly words$: Observable<Word[]> = this.vocabularyFacade.words$;
 
-  public readonly groupStatistics$: Observable<GroupStatistics> = this.vocabularyFacade.getGroupStatistics(this.userWordsFilteredByGroupAndSearchValue$);
-
+  public readonly groupStatistics$: Observable<GroupStatistics> = this.vocabularyFacade.getGroupStatistics(this.words$);
 
   public readonly wordMenuItems$: Observable<MenuItem<WordAction>[]> = this.vocabularyFacade.wordMenuItems$;;
   public readonly vocabularyLoader$: Observable<boolean> = this.vocabularyFacade.vocabularyLoader$
@@ -84,7 +84,9 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   public readonly modalLoader$: Observable<boolean> = this.store$.pipe(select(modalLoaderSelector))
   private modalContext: TemplateRef<any>
   public readonly supportedLanguagesForTranslation$: Observable<SupportedLanguage[]> = this.vocabularyFacade.supportedLanguagesForTranslation$
-  public readonly isShowOnlyVerbs$: Observable<boolean> = this.vocabularyFacade.isShowVerbs$
+
+  public readonly verbsToggle = this.fb.control(false);
+
   public readonly isShowVerbsToggle$: Observable<boolean> = this.vocabularyFacade.isShowVerbsToggle$
   public readonly csvLoading$ = this.store$.pipe(select(csvLoaderSelector));
   public readonly isResetCsvHandlerState$ = this.store$.pipe(select(isResetCsvHandlerSelector))
@@ -110,6 +112,13 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     this.showInstallAppSuggestion();
     this.detectDevice();
 
+    this.vocabularyFacade.isShowVerbs$.pipe(
+      tap(isShowVerbs => {
+        this.verbsToggle.patchValue(isShowVerbs, { emitEvent: false })
+      }),
+      switchMap(e => this.verbsToggle.valueChanges.pipe(tap(_ => this.onShowOnlyVerbs()))),
+      takeUntil(this.subscription$)
+    ).subscribe()
   }
 
   fetchData() {

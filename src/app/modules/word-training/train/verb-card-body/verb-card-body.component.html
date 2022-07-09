@@ -20,9 +20,15 @@
 
 
 
-  <ng-container *ngFor="let conjugation of verbTableModel">
-   <app-verb-table-row [conjugation]="conjugation" [showText]="showText" ></app-verb-table-row>
-  </ng-container>
+  <!-- <ng-container *ngFor="let conjugation of verbTableModel"> -->
+   <!-- <app-verb-table-row [conjugation]="conjugation" [showText]="showText" ></app-verb-table-row> -->
+
+   <app-conjugation-card 
+      [conjugation]="conjugation"
+      [showText]="showText"
+    >
+   </app-conjugation-card>
+  <!-- </ng-container> -->
 
   <!-- <tr>
     <td>אני</td>

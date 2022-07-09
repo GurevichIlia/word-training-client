@@ -13,8 +13,15 @@
   <nb-card-body class="p-3">
 
   <ng-container word-type-toggle *ngIf="isShowVerbsToggle$ | async">
-    <div class="mb-2">
-      <button class="mr-2" nbButton (click)="onShowOnlyVerbs()" size="tiny">{{(isShowOnlyVerbs$ | async) ? 'All' : 'Verbs'}}</button>
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+      <div class="d-flex">
+        <div class="mr-2 word-type">Verbs</div>
+        <tui-toggle
+          [formControl]="verbsToggle"
+          size="l"
+          [showIcons]="true"
+        ></tui-toggle>
+      </div>
       <button class="conjugations-button" nbButton  size="tiny"><a [routerLink]="['/conjugations']">Conjugations</a></button>
     </div>
   </ng-container>

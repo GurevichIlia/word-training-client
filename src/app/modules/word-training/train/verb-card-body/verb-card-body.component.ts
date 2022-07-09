@@ -35,4 +35,12 @@ export class VerbCardBodyComponent implements OnChanges {
   masterShowToggle(): void {
     this.showText = !this.showText
   }
+
+  get conjugation() {
+    if (!this.time || !this._verb) {
+      return
+    }
+
+    return this._verb.conjugations[this.time]
+  }
 }

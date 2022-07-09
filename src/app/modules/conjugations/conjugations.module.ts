@@ -17,6 +17,7 @@ import { ConjugationCardComponent } from './components/conjugation-card/conjugat
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ConjugationCellComponent } from 'src/app/shared/components/conjugation-cell/conjugation-cell.component';
 import { ConjugationCardsComponent } from './components/conjugation-cards/conjugation-cards.component';
+import { ConjugationCardModule } from './components/conjugation-card/conjugation-card.module';
 
 
 
@@ -26,8 +27,7 @@ import { ConjugationCardsComponent } from './components/conjugation-cards/conjug
     VerbsInputComponent,
     CsvVerbsInputComponent,
     ConjugationsListComponent,
-    ConjugationCardComponent,
-    ConjugationCellComponent,
+
     ConjugationCardsComponent
   ],
   imports: [
@@ -47,6 +47,7 @@ import { ConjugationCardsComponent } from './components/conjugation-cards/conjug
     GroupListModule,
     ModalUiModule,
     InfiniteScrollModule,
+    ConjugationCardModule
   ],
 
 

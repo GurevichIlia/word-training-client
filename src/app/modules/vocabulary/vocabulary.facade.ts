@@ -90,7 +90,7 @@ export class VocabularyFacade {
 
   // }
 
-  filterBySearcValue(searchValue: string, words: (Word | GeneralWord)[]): Word[] {
+  public filterBySearchValue(searchValue: string, words: (Word | GeneralWord)[]): Word[] {
     return this.wordsService.filterBySearcValue(searchValue, words);
   }
 

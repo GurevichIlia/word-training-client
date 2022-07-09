@@ -1,6 +1,6 @@
 import { UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Conjugation } from '../modules/conjugations/models/conjugations.interface';
+import { Conjugation, VerbTimeEnum } from '../modules/conjugations/models/conjugations.interface';
 import { LanguageInterface } from '../modules/languages/types/languages.interfaces';
 
 export interface CurrentUserInterface {
@@ -34,7 +34,7 @@ export interface Word {
 
 
 export interface Verb extends Word {
-  conjugations: Conjugation[]
+  conjugations: { [key in VerbTimeEnum]: Conjugation }
 }
 
 export interface FetchVerbsResponseData {

@@ -23,6 +23,7 @@ import { VerbCardBodyComponent } from './train/verb-card-body/verb-card-body.com
 import { VerbTableRowComponent } from './train/verb-table-row/verb-table-row.component';
 import { ToggleModule } from 'src/app/shared/components/toggle/toggle.module';
 import { VerbTableRowModule } from './train/verb-table-row/verb-table-row.module';
+import { ConjugationCardModule } from '../conjugations/components/conjugation-card/conjugation-card.module';
 
 
 
@@ -67,7 +68,8 @@ const wordtrainingRoutes: Routes = [
     VerbTableRowModule,
     NbRadioModule,
 
-    TuiButtonModule
+    TuiButtonModule,
+    ConjugationCardModule
 
   ],
   providers: [
